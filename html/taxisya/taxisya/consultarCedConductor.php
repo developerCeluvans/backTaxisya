@@ -1,0 +1,1 @@
+<?php	include ("conexion.php"); include ("funciones.php");	$conex = ConectarCMS(); $encontrado = ConsultCedula($_GET["cedula"]); if ($encontrado>0) echo "El conductor con cedula $cedula ya existe, rectifique"; ?>

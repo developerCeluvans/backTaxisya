@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Conductores</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+		<META HTTP-EQUIV="EXPIRES" CONTENT="Mon, 22 Jul 2002 11:12:01 GMT">
+			<!-- Link shortcut icon-->
+			<link rel="shortcut icon" type="image/ico" href="images/favicon.ico"/>
+
+			<!-- CSS Stylesheet-->
+			<link type="text/css" rel="stylesheet" href="components/bootstrap/bootstrap.css" />
+			<link type="text/css" rel="stylesheet" href="components/bootstrap/bootstrap-responsive.css" />
+			<link type="text/css" rel="stylesheet" href="css/zice.style.css"/>
+
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="components/ui/jquery.ui.min.js"></script>
+        <script type="text/javascript" src="components/bootstrap/bootstrap.min.js"></script>
+        <script type="text/javascript" src="components/ui/timepicker.js"></script>
+        <script type="text/javascript" src="components/colorpicker/js/colorpicker.js"></script>
+        <script type="text/javascript" src="components/form/form.js"></script>
+        <script type="text/javascript" src="components/elfinder/js/elfinder.full.js"></script>
+        <script type="text/javascript" src="components/datatables/dataTables.min.js"></script>
+        <script type="text/javascript" src="components/fancybox/jquery.fancybox.js"></script>
+        <script type="text/javascript" src="components/jscrollpane/jscrollpane.min.js"></script>
+        <script type="text/javascript" src="components/editor/jquery.cleditor.js"></script>
+        <script type="text/javascript" src="components/chosen/chosen.js"></script>
+        <script type="text/javascript" src="components/validationEngine/jquery.validationEngine.js"></script>
+        <script type="text/javascript" src="components/validationEngine/jquery.validationEngine-en.js"></script>
+        <script type="text/javascript" src="components/fullcalendar/fullcalendar.js"></script>
+        <script type="text/javascript" src="components/flot/flot.js"></script>
+        <script type="text/javascript" src="components/uploadify/uploadify.js"></script>
+        <script type="text/javascript" src="components/Jcrop/jquery.Jcrop.js"></script>
+        <script type="text/javascript" src="components/smartWizard/jquery.smartWizard.min.js"></script>
+        <script type="text/javascript" src="js/jquery.cookie.js"></script>
+        <script type="text/javascript" src="js/zice.custom.js"></script>
+        <script type="text/javascript" src="js/jquery.table2excel.js"></script>
+        
+
+		</head>
+		<body>
+    <div id="google_translate_element" style="text-align:right;margin-right:3%;position:fixed;z-index: 999;width:100%;background:#ffffff;"></div>
+        <script>
+          function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'es', includedLanguages: 'en', layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL, autoDisplay: false}, 'google_translate_element');
+          }
+        </script>
+        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        <br/><br/>
+
+
+			 <?php echo view('common.header')->with(get_defined_vars())->render(); ?>
+        	 <?php echo view('common.leftmenu')->with(get_defined_vars())->render(); ?>
+			<div id="content" >
+				<div class="inner">
+
+					<div class="row-fluid">
+						<div class="span12 clearfix">
+							<div class="logo"></div>
+						</div>
+					</div>
+					<div id='mainContainer'>
+
+						<?php echo " Conductores actuales: "; ?><strong style="color: red"><?php echo  $total1 ; ?></strong>
+						<?php echo "  Conductores Activos: "; ?><strong style="color: red"><?php echo $avaiables; ?></strong>
+                        <?php echo "  Conductores Inactivos: "; ?><strong style="color: red"><?php echo $notavaiables; ?></strong>
+
+
+<!-- 						<ul class="tabs">
+							<li style="display: list-item;" class="active" ><a href="#tab1">Activos</a></li>
+							<li style="display: list-item;"><a href="#tab2">No activos</a></li>
+						</ul>
+ -->
+						<div class="tab_container">
+
+							<p><h3>Se podrán agregar y buscar nuevos y antiguos conductores registrados en la base de datos.</h3></p>
+							<div id="tab1" class="tab_content">
+								<div class="section" style="display: block;">
+								    <a class="btn  btn-large " href="javascript:dataPoster('driver-0-new')" ><i class="icon-plus"></i>Agregar conductor</a>
+								</div>
+								<!-- <table class="table table-bordered table-striped" id="data-table-1"> -->
+								<table class="table table-bordered table-striped" id="dataTable">
+									<thead>
+										<tr>
+											<th>Disponible</th>
+											<th>Celular</th>
+											<th>Nombre</th>
+											<th>Placa</th>
+											<th>Correo electrónico</th>
+											<th>Registrado</th>
+											<th>Modificado</th>
+											<th>Opciones</th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php foreach($waiting_drivers as $driver): ?>
+											<tr>
+											<!--<td><?php echo  $driver->available ; ?></td>-->
+
+						                    <td>
+							                <span class="checkslide">
+								            <input type="checkbox" <?php echo ($driver->available == 1) ? 'checked="checked"' : ''; ?> disabled="disabled"/>
+								            <label data-on="On" data-off="Off"></label>
+							                </span>
+						                    </td>
+
+						                    <?php if (isset($driver->cellphone)): ?>
+												<td><?php echo  $driver->cellphone; ?></td>
+											<?php else: ?>
+												<td></td>
+											<?php endif; ?>	
+											
+											<?php if (isset($driver->name)): ?>
+												<td><?php echo  $driver->name; ?></td>
+											<?php else: ?>
+												<td></td>
+											<?php endif; ?>
+											
+											<?php if (isset($driver->car->placa)): ?>
+												<td><?php echo  $driver->car->placa; ?></td>
+											<?php else: ?>
+												<td></td>
+											<?php endif; ?>
+
+											
+											<?php if (isset($driver->email)): ?>
+												<td><?php echo  $driver->email; ?></td>
+											<?php else: ?>
+												<td></td>
+											<?php endif; ?>
+											
+											<?php if (isset($driver->created_at)): ?>
+												<td><?php echo  $driver->created_at; ?></td>
+											<?php else: ?>
+												<td></td>
+											<?php endif; ?>
+
+											<?php if (isset($driver->updated_at)): ?>
+												<td><?php echo  $driver->updated_at; ?></td>
+											<?php else: ?>
+												<td></td>
+											<?php endif; ?>
+
+
+											<!--<td></td>-->
+
+											<td>
+											<span class="tip" ><img title="EDIT" src="images/icon/icon_edit.png" id="driver-<?php echo $driver->id; ?>-edit" onclick='dataPoster(this.id)'></span>
+											<!--<span class="tip" ><a href="javascript:void(0)" class="Delete" data-name="delete name" title="Delete"  ><img src="images/icon/icon_delete.png" ></a></span>-->
+											<span class="tip" ><img title="ELIMINAR" src="images/icon/icon_delete.png" id="driver-<?php echo $driver->id; ?>-delete" onclick='dataPoster(this.id)'></span>
+											</td>
+
+
+
+
+
+											</tr>
+										<?php endforeach; ?>
+									</tbody>
+								</table>
+								<input type="button" id="extExcel" value="Exportar a Excel"/>
+							</div>
+							<div id="tab2" class="tab_content">
+								<table class="table table-bordered table-striped" id="data-table-2">
+								<!-- <table class="table table-bordered table-striped" id="dataTable"> -->
+									<thead>
+										<tr>
+											<th>Disponible</th>
+											<th>Cel</th>
+											<th>Nombre</th>
+											<th>Placa</th>
+											<th>e-mail</th>
+											<th>Registrado</th>
+											<th>Modificado</th>
+											<th>Opciones</th>
+										</tr>
+									</thead>
+
+								</table>
+								<input type="button" id="extExcel-2" value="Exportar a Excel"/>
+							</div>
+
+						</div>
+					</div><!-- row-fluid -->
+					<?php echo view('common.footer')->with(get_defined_vars())->render(); ?>
+
+				</div> <!--// End inner -->
+			</div> <!--// End ID content -->
+			<?php if(isset($message)): ?>
+				<?php if ($result == '1'): ?>
+				<script type = "text/javascript" >
+				                alertMessage('success', "<?php echo $message; ?>");
+				</script>
+				<?php else: ?>
+				<script type="text/javascript">
+				    alertMessage('error', "<?php echo $message; ?>");
+				</script>
+				<?php endif; ?>
+
+			<?php endif; ?>
+			<script>
+				$('#data-table-1').dataTable({
+					"sDom": "<'row-fluid tb-head'<'span6'f><'span6'<'pull-right'l>>r>t<'row-fluid tb-foot'<'span4'i><'span8'p>>",
+					"bJQueryUI": false,
+					"iDisplayLength": 50,
+					"sPaginationType": "bootstrap",
+					"oLanguage": {
+						"sLengthMenu": "_MENU_",
+						"sSearch": "Buscar"
+					},
+					"bFilter": true,
+					"sAjaxSource": "http://www.taxisya.co/cms/public/v2/drivers/1/json"
+				});
+				$('#data-table-2').dataTable({
+					"sDom": "<'row-fluid tb-head'<'span6'f><'span6'<'pull-right'l>>r>t<'row-fluid tb-foot'<'span4'i><'span8'p>>",
+					"bJQueryUI": false,
+					"iDisplayLength": 50,
+					"sPaginationType": "bootstrap",
+					"oLanguage": {
+						"sLengthMenu": "_MENU_",
+						"sSearch": "Buscar"
+					},
+					"bFilter": true,
+					"bServerSide": true,
+					"sAjaxSource": "http://www.taxisya.co/cms/public/v2/drivers/0/json"
+				});
+				    $("#extExcel").click(function (e) {
+				        $("#dataTable").table2excel({
+				            name: "dataTable",
+				            filename: "dataTable", //do not include extension
+				            fileext: ".xls",
+				            exclude_img: true,
+				            exclude_inputs: true
+				        });
+				    });
+				    $("#extExcel-2").click(function (e) {
+				        $("#data-table-2").table2excel({
+				            name: "data-table-2",
+				            filename: "data-table-2", //do not include extension
+				            fileext: ".xls",
+				            exclude_img: true,
+				            exclude_inputs: true
+				        });
+				    });
+			</script>
+		</body>
+		</html>
+
+
+
+

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" xmlns:html="http://www.w3.org/TR/REC-html40">
+<Styles>
+<Style ss:ID="sDT"><NumberFormat ss:Format="Short Date"/></Style>
+</Styles>
+<Worksheet ss:Name="Sheet1">
+    <Table>
+        <Row>
+            <Cell><Data ss:Type="String">NO</Data></Cell>
+            <Cell><Data ss:Type="String">Nomb. Usuario</Data></Cell>
+            <Cell><Data ss:Type="String">Conductor</Data></Cell>
+            <Cell><Data ss:Type="String">Vehiculo</Data></Cell>
+            <Cell><Data ss:Type="String">Móvil</Data></Cell>
+            <Cell><Data ss:Type="String">Estado</Data></Cell>
+            <Cell><Data ss:Type="String">Solicitud</Data></Cell>
+            <Cell><Data ss:Type="String">Finalización</Data></Cell>
+            <Cell><Data ss:Type="String">Calificacion</Data></Cell>
+            <Cell><Data ss:Type="String">Dirección</Data></Cell>
+        </Row>
+        <Row>
+            <Cell><Data ss:Type="Number">104107</Data></Cell>
+            <Cell><Data ss:Type="String">DORA MORENO</Data></Cell>
+            <Cell><Data ss:Type="String"> JULIO ENRIQUE HERRERA CASTELLANOS</Data></Cell>
+            <Cell><Data ss:Type="String"> TAY439 KIA RIO SEPHIA</Data></Cell>
+            <Cell><Data ss:Type="Number">5089</Data></Cell>
+            <Cell><Data ss:Type="String">Cancelado por conductor</Data></Cell>
+            <Cell ss:StyleID="sDT"><Data ss:Type="DateTime">2016-02-03T03:53:21</Data></Cell>
+            <Cell ss:StyleID="sDT"><Data ss:Type="DateTime">2016-02-03T03:56:41</Data></Cell>
+            <Cell><Data ss:Type="String"></Data></Cell>
+            <Cell><Data ss:Type="String"> Calle 22 B 59 31 SALITRE AP 108 BQSA 4</Data></Cell>
+        </Row>
+        <Row>
+            <Cell><Data ss:Type="Number">104330</Data></Cell>
+            <Cell><Data ss:Type="String">jose gonzalez </Data></Cell>
+            <Cell><Data ss:Type="String"> jesica paola  casas rodriguez</Data></Cell>
+            <Cell><Data ss:Type="String"> VEB440 HYUNDAI ATOS PRIME GL</Data></Cell>
+            <Cell><Data ss:Type="String"></Data></Cell>
+            <Cell><Data ss:Type="String">Cancelado por conductor</Data></Cell>
+            <Cell ss:StyleID="sDT"><Data ss:Type="DateTime">2016-02-17T09:51:05</Data></Cell>
+            <Cell ss:StyleID="sDT"><Data ss:Type="DateTime">2016-02-17T09:51:17</Data></Cell>
+            <Cell><Data ss:Type="String"></Data></Cell>
+            <Cell><Data ss:Type="String">     Eduardo Santos </Data></Cell>
+        </Row>
+        <Row>
+            <Cell><Data ss:Type="Number">104333</Data></Cell>
+            <Cell><Data ss:Type="String">jose gonzalez </Data></Cell>
+            <Cell><Data ss:Type="String"> jesica paola  casas rodriguez</Data></Cell>
+            <Cell><Data ss:Type="String"> VEB440 HYUNDAI ATOS PRIME GL</Data></Cell>
+            <Cell><Data ss:Type="String"></Data></Cell>
+            <Cell><Data ss:Type="String">Cancelado por conductor</Data></Cell>
+            <Cell ss:StyleID="sDT"><Data ss:Type="DateTime">2016-02-17T09:52:10</Data></Cell>
+            <Cell ss:StyleID="sDT"><Data ss:Type="DateTime">2016-02-17T09:52:33</Data></Cell>
+            <Cell><Data ss:Type="String"></Data></Cell>
+            <Cell><Data ss:Type="String">     Eduardo Santos </Data></Cell>
+        </Row>
+        <Row>
+            <Cell><Data ss:Type="Number">104334</Data></Cell>
+            <Cell><Data ss:Type="String">Jackeline ortega</Data></Cell>
+            <Cell><Data ss:Type="String"> Javier VarónS</Data></Cell>
+            <Cell><Data ss:Type="String"> BHH736 Renault citius</Data></Cell>
+            <Cell><Data ss:Type="Number">1</Data></Cell>
+            <Cell><Data ss:Type="String">Cancelado por conductor</Data></Cell>
+            <Cell ss:StyleID="sDT"><Data ss:Type="DateTime">2016-02-17T09:53:15</Data></Cell>
+            <Cell ss:StyleID="sDT"><Data ss:Type="DateTime">2016-02-17T09:53:44</Data></Cell>
+            <Cell><Data ss:Type="String"></Data></Cell>
+            <Cell><Data ss:Type="String">     Chicó Norte II </Data></Cell>
+        </Row>
+        <Row>
+            <Cell><Data ss:Type="Number">104341</Data></Cell>
+            <Cell><Data ss:Type="String">Luis Fernando Galan Castro</Data></Cell>
+            <Cell><Data ss:Type="String"> Javier VarónS</Data></Cell>
+            <Cell><Data ss:Type="String"> BHH736 Renault citius</Data></Cell>
+            <Cell><Data ss:Type="Number">1</Data></Cell>
+            <Cell><Data ss:Type="String">Cancelado por conductor</Data></Cell>
+            <Cell ss:StyleID="sDT"><Data ss:Type="DateTime">2016-02-17T10:22:17</Data></Cell>
+            <Cell ss:StyleID="sDT"><Data ss:Type="DateTime">2016-02-17T10:22:28</Data></Cell>
+            <Cell><Data ss:Type="String"></Data></Cell>
+            <Cell><Data ss:Type="String">     Barrios Unidos </Data></Cell>
+        </Row>
+    </Table>
+</Worksheet>
+</Workbook>

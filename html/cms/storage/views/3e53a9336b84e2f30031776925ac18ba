@@ -1,0 +1,167 @@
+<?php \Laravel\Section::start('title'); ?>
+<?php echo $title; ?>
+<?php \Laravel\Section::stop(); ?>
+<?php \Laravel\Section::start('tablesorting'); ?>
+<?php echo $tablesorting; ?>
+<?php \Laravel\Section::stop(); ?>
+<?php \Laravel\Section::start('contentTable'); ?>
+<p><h3>Podrá agregar y buscar agendamientos.</h3></p>
+<div id="UITab" style="position:relative;">
+    <ul class="tabs" >
+        <?php foreach($manageBtns['tabs']['options'] as $tabData): ?>
+        <li ><a href="#tab<?php echo $tabData['id']; ?>"><?php echo $tabData['description']; ?></a></li>            
+        <?php endforeach; ?>                
+    </ul>
+    <div class="tab_container" >
+        <?php foreach($manageBtns['tabs']['options'] as $tabData): ?>
+        <div id="tab<?php echo $tabData['id']; ?>" class="tab_content"> 
+            <div class="section" style="display: block;">
+                
+				<?php if(isset($manageBtns['group'])): ?>
+                <a class="btn  btn-large " href="javascript:dataPoster('<?php echo $section; ?>-<?php echo $manageBtns['group']; ?>-new')"><i class="icon-plus"></i>Agregar Item</a>
+                <?php else: ?>
+					<?php if($manageBtns['add']==true): ?>
+					<a class="btn  btn-large " href="javascript:dataPoster('<?php echo $section; ?>-0-new')"><i class="icon-plus"></i>Agregar Item</a>
+					<?php endif; ?>
+                <?php endif; ?>
+				
+                <?php if(isset($manageBtns['export'])): ?>
+                <a class="btn  btn-large " href="javascript:dataPoster('<?php echo $section; ?>-<?php echo $tabData['id']; ?>-export')"><i class="icon-plus"></i>Exportar tabla</a>
+                <?php endif; ?>
+
+                <?php if(isset($manageBtns['back'])): ?>
+                <a class="btn  btn-large " href="javascript:dataPoster('<?php echo $manageBtns['back']['section']; ?>-<?php echo $manageBtns['back']['id']; ?>-<?php echo $manageBtns['back']['action']; ?>')"><i class="icon-link"></i>Volver</a>
+                <?php endif; ?>
+
+                <?php if(isset($manageBtns['total'])): ?>
+				<h2>Total:<span id="totalRows<?php echo $tabData['id']; ?>"></span></h2>
+                <?php endif; ?>
+            </div>
+			<table class="table table-bordered table-striped" id="dataTable">
+				<thead align="center">
+					<tr>
+						<?php foreach($titles as $colNum=>$colTitle): ?>
+							<?php if(substr($colNum, 0, 5)=='comb_'): ?>
+							<th><?php echo substr($colNum,5); ?></th>
+							<?php else: ?>
+							<th><?php echo $colNum; ?></th>
+							<?php endif; ?>
+						<?php endforeach; ?>
+						<th>Agendar</th>
+					</tr>
+				</thead>
+				<?php $rowsTotal = 0;?>
+                <tbody align="center">
+					<?php if (count($items) > 0): ?><?php foreach ($items as $item): ?>
+						<?php if($item->$manageBtns['tabs']['tabber']!=$tabData['id']): ?>
+						<?php continue; ?>
+						<?php endif; ?>
+						<?php $rowsTotal++; ?>
+						<tr>
+							<?php foreach($titles as $colNum=>$colTitle): ?>
+								<?php if(is_array($colTitle)): ?>
+									<?php if(is_array($colTitle[0])): ?>
+									<?php
+									$tmpObj = '';
+									foreach ($colTitle as $colKey => $part) {
+										//dd($item->$part[0]);
+										if ($item->$part[0] != NULL) {
+											$tmpObj .= " " . $item->$part[0]->$part[1];
+										}
+									}
+									?>
+									<td><?php echo $tmpObj; ?></td>
+									<?php else: ?>
+									<?php $tmpObj = ($item->$colTitle[0] != NULL) ? $item->$colTitle[0]->$colTitle[1] : ''; ?>
+									<td><?php echo $tmpObj; ?></td>
+									<?php endif; ?>
+								<?php else: ?>
+									<?php if(substr($colNum, 0, 5)=='comb_'): ?>
+									<?php
+									$dataToComb = explode(".", $colTitle);
+									$combResult = '';
+									foreach ($dataToComb as $key => $value) {
+										if ($item->$value == NULL) {
+											$combResult .= " ";
+										} else {
+											$combResult .= " " . $item->$value;
+										}
+									}
+									?>
+									<td><?php echo $combResult; ?></td>
+									<?php else: ?>
+									<?php if ($item->$colTitle == NULL) { ?>
+										<td></td>
+									<?php } else { ?>
+										<td><?php echo $item->$colTitle; ?></td>
+									<?php } ?>
+									<?php endif; ?>
+								<?php endif; ?>
+							<?php endforeach; ?>								
+						   <!--td>
+								<span class="tip" ><img title="EDIT" src="images/icon/icon_edit.png" id="schedule-<?php echo $item->id; ?>-edit" onclick='dataPoster(this.id)'></span> 
+								<span class="tip" ><a href="javascript:void(0)" class="Delete" data-name="delete name" title="Delete"  ><img src="images/icon/icon_delete.png" ></a></span> 
+							</td-->
+						<td>
+                            <?php if(isset($manageBtns['custom'])): ?>
+                            <?php if (count($manageBtns['custom']) > 0): ?><?php foreach($manageBtns['custom'] as $customBtn): ?> 
+                            <?php if($customBtn['5']==$tabData['id']): ?>
+                            <span class="tip" ><img title="<?php echo $customBtn['0']; ?>" src="<?php echo $customBtn['3']; ?>" id="<?php echo $customBtn['2']; ?>-<?php echo $item->id; ?>-<?php echo $customBtn['1']; ?>" onclick='<?php echo isset($customBtn['4']) ? $customBtn['4'] : 'dataPoster(this.id)'; ?>'></span> 
+                            <?php endif; ?>
+                            <?php endforeach; ?><?php else: ?>
+                            <?php endif; ?>
+                            <?php endif; ?>
+                            <?php if($manageBtns['edit']==true): ?>
+                            <span class="tip" ><img title="EDIT" src="images/icon/icon_edit.png" id="<?php echo $section; ?>-<?php echo $item->id; ?>-edit" onclick='dataPoster(this.id)'></span> 
+                            <?php endif; ?>
+                            <?php if($manageBtns['del']==true): ?>
+                            <span class="tip" ><img title="ELIMINAR" src="images/icon/icon_delete.png" id="<?php echo $section; ?>-<?php echo $item->id; ?>-delete" onclick='dataPoster(this.id)'></span> 
+                            <?php endif; ?>
+                        </td>
+						</tr>
+						<?php endforeach; ?><?php else: ?>
+						<?php foreach($titles as $colNum=>$colTitle): ?>
+							<td>''</td>
+						<?php endforeach; ?>
+						<td></td>
+					<?php endif; ?>
+				</tbody>
+			</table>
+
+		</div><!--tab1-->
+        <script type='text/javascript'>
+                                //DataTable
+                                $('#dataTable<?php echo $tabData["id"]; ?>').dataTable({
+                                    "sDom": "<'row-fluid tb-head'<'span6'f><'span6'<'pull-right'l>>r>t<'row-fluid tb-foot'<'span4'i><'span8'p>>",
+                                    "bJQueryUI": false,
+                                    "iDisplayLength": 50,
+                                    "sPaginationType": "bootstrap",
+                                    "oLanguage": {
+                                        "sLengthMenu": "_MENU_",
+                                        "sSearch": "Search"
+                                    }
+                                });
+                                $("#extExcel").click(function (e) {
+				                    $("#dataTable<?php echo $tabData['id']; ?>").table2excel({
+				                        name: "dataTable<?php echo $tabData['id']; ?>",
+				                        filename: "dataTable<?php echo $tabData['id']; ?>", //do not include extension
+            							fileext: ".xls",
+				                    });
+				                });
+								 <?php if (isset($manageBtns['total'])): ?>
+                                        $("#totalRows<?php echo $tabData['id']; ?>").empty().html("<?php echo $rowsTotal; ?>");
+                                <?php endif; ?>
+        </script>
+		<script type="text/javascript">
+			// Tabs
+			$("ul.tabs li").fadeIn(400);
+			$("ul.tabs li:first").addClass("active").fadeIn(400);
+			$(".tab_content:first").fadeIn();
+		</script>
+        <?php endforeach; ?>
+    </div>
+</div><!-- End UITab -->
+<?php \Laravel\Section::stop(); ?>
+
+
+<?php echo view('layouts.table')->with(get_defined_vars())->render(); ?>

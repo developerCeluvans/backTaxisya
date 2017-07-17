@@ -1,0 +1,2 @@
+
+<?php echo view('layouts.login')->with(get_defined_vars())->render(); ?>

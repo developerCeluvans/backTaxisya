@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Agendamientos</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- CSS Stylesheet-->
+        <link type="text/css" rel="stylesheet" href="/components/bootstrap/bootstrap.css" />
+        <link type="text/css" rel="stylesheet" href="/components/bootstrap/bootstrap-responsive.css" />
+        <link type="text/css" rel="stylesheet" href="/styles/zice.style.css"/>
+
+        <script type="text/javascript" src="/libs/jquery-1.10.2.js"></script>
+        <script type="text/javascript" src="/libs/underscore.js"></script>
+        <script type="text/javascript" src="/libs/backbone.js"></script>
+        <script type="text/javascript" src="components/bootstrap/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/schedule.js"></script>
+        <script type="text/javascript" src="/js/service.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+
+
+        <script type="text/javascript" src="/components/ui/jquery.ui.min.js"></script>
+        <script type="text/javascript" src="/components/bootstrap/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/components/ui/timepicker.js"></script>
+        <script type="text/javascript" src="/components/colorpicker/js/colorpicker.js"></script>
+        <!-- <script type="text/javascript" src="/components/form/form.js"></script> -->
+        <script type="text/javascript" src="/components/elfinder/js/elfinder.full.js"></script>
+        <script type="text/javascript" src="/components/datatables/dataTables.min.js"></script>
+        <!-- <script type="text/javascript" src="/components/fancybox/jquery.fancybox.js"></script> -->
+        <!-- <script type="text/javascript" src="/components/jscrollpane/jscrollpane.min.js"></script> -->
+        <!-- <script type="text/javascript" src="/components/editor/jquery.cleditor.js"></script> -->
+        <script type="text/javascript" src="/components/chosen/chosen.js"></script>
+        <script type="text/javascript" src="/components/validationEngine/jquery.validationEngine.js"></script>
+        <script type="text/javascript" src="/components/validationEngine/jquery.validationEngine-en.js"></script>
+        <script type="text/javascript" src="/components/fullcalendar/fullcalendar.js"></script>
+        <script type="text/javascript" src="/components/flot/flot.js"></script>
+        <script type="text/javascript" src="/components/uploadify/uploadify.js"></script>
+        <script type="text/javascript" src="/components/Jcrop/jquery.Jcrop.js"></script>
+        <script type="text/javascript" src="/components/smartWizard/jquery.smartWizard.min.js"></script>
+        <script type="text/javascript" src="/js/jquery.cookie.js"></script>
+        <!-- <script type="text/javascript" src="/js/zice.custom.js"></script> -->
+        <script>
+            /*var currentSchedules;
+             console.log(window.location.href);*/
+            console.log(window.location.host);
+            var socket = io.connect('//' + window.location.host);
+            
+        </script>
+    </head>
+    <body>
+        <input id="customer_id" value="0" type="hidden"></input>
+        <audio id="expireAlert">
+            <source src="/resource/mp3/School_Fire_Alarm-Cullen_Card-202875844.mp3" type="audio/mpeg">
+            Your browser does not support this audio format.
+        </audio>
+        <div class="container">
+            <h1>Agendamientos</h1>
+            <hr><input type="button" value="Borrar servicios tomados" onClick="window.location.reload()"></hr>
+            <div class="page"></div>
+        </div>
+
+        <!-- Plantillas para vistas -->
+        <script type="text/template" id="schedule-list-template">
+            <hr />
+            <table class="table table-bordered table-striped" id="dataTable">
+            <thead>
+            <tr>
+            <th>N°</th>
+            <th>Fecha de agendamiento</th>
+            <th>Nombre usuario</th>
+            <th>Celular usuario</th>
+            <th>Correo usuario</th>
+            <th>Tipo de agendamiento</th>
+            <th>Destino</th>
+            <th>Dirección</th>
+            <th>Est. Agendamiento</th>
+            <th>Cod. Servicio</th>
+            <th>Est. Servicio</th>
+            <th></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% _.each(schedules, function(schedule) {%>
+            <tr id="item<%=schedule.id%>">
+            </tr>
+            <% }); %>
+            </tbody>
+            </table>
+        </script>
+        <!-- Plantilla para modelo -->
+        <script type="text/template" id="schedule-item-template">
+
+            <td><%= schedule.id%></td>
+            <td><%= schedule.service_date_time %></td>
+            <td><%= schedule.user.name %> <%= schedule.user.lastname%></td>
+            <td><%= schedule.user.cellphone %></td>
+            <td><%= schedule.user.email %></td>
+            <td><%= schedule.type.descrip%></td>
+            <td><%= schedule.destination %></td>
+            <td><%= schedule.address %> <%= schedule.comp1 %> #<%= schedule.comp2 %> <%= schedule.no %> <%= schedule.barrio %> <%= schedule.obs %></td>
+            <% if(schedule.status==5){
+                var tmpServices=schedule.service;
+                var service = tmpServices[tmpServices.length-1];%>
+                <% if(service.driver!=null){ %>
+                    <td id="scheduleStatus<%= schedule.id%>"> Confirmado por: <%=service.driver.name %> <%=service.driver.lastname %>, <%=service.driver.cellphone %>, movil: <%=service.driver.car.movil %> placa: <%=service.driver.car.placa %> </td>
+                <% }else{ %>
+
+                    <td id="scheduleStatus<%= schedule.id%>">Buscando...</td>
+                <%
+                }
+                %>
+            <td><%= service.id %></td>
+            <td><%= service.state.descrip %></td>
+            <% if((parseInt(service.status_id))<5){%>
+            <td><a class="btn  btn-large " id="cancelService" href="#"><i class="icon-close"></i>Cancelar</a></td>
+                <%}else{%>
+                <td></td>
+                <%}%>
+            <% }else{ %>
+            <td id="scheduleStatus<%= schedule.id%>">Espera</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <% } %>
+            <% if(schedule.status==5){
+                if(service.status_id==5||service.status_id==1||service.status_id==2){
+                    if(service.status_id == 2){
+                        %>
+                        <td></td>
+                    <%
+                    }else{
+                    %>
+                        <td></td>
+                    <%
+                    }
+                    %>
+                <%}else{%>
+                    <td>
+                        <div id="solicitar_service">
+                        <a class="btn  btn-large " id="toService" href="#"><i class="icon-plus"></i>Solicitar</a>
+                        <div id="solicitar_service">
+                        <a class="btn  btn-large " id="cancelSchedule" href="#"><i class="icon-close"></i>Cancelar Ag.</a>
+                    </td>
+                <%}%>
+            <%}else{%>
+            <td>
+                <div id="solicitar_service">
+                <a class="btn  btn-large " id="toService" href="#"><i class="icon-plus"></i>Solicitar</a>
+                </div>
+                <a class="btn  btn-large " id="cancelSchedule" href="#"><i class="icon-close"></i>Cancelar Ag.</a>
+            </td>
+            <%}%>
+
+        </script>
+        <script type="text/javascript">
+            var myParam = location.search.split('customer_id=')[1]
+            //console.log(myParam);
+            document.getElementById('customer_id').value = myParam;
+        </script>
+        <script type="text/javascript" src="/js/backboneSchedule.js"></script>
+        <script type="text/javascript" src="/js/codeSchedules.js"></script>
+    </body>
+</html>

@@ -1,0 +1,78 @@
+<!-- left_menu -->
+<div id="left_menu">
+    <ul id="main_menu" class="main_menu"><!-- class="select" -->
+        <!--<li ><a href="dashboard"><span class="ico gray shadow home" ></span><b>Dashboard</b></a></li> -->
+
+         <li ><a href="dashboard"><span class="ico gray shadow home" ></span><b>Inicio</b></a></li>
+
+
+        @if(isset($test)&&$test==TRUE)
+            <li id='administrator-Btn'><a><span class="ico gray shadow window"></span><b>Usuario CMS</b></a></li>
+        @else
+        @if (Auth::user()->role_id == 1) {
+    <!--        <li id='appversion-Btn'><a><span class="ico gray shadow window"></span><b>Versiones de aplicación</b></a></li> -->
+            <li id='administrator-Btn'><a><span class="ico gray shadow window"></span><b>Usuario CMS</b></a></li>
+            <li id='user-Btn'><a><span class="ico gray shadow window"></span><b>Usuarios App</b></a></li>
+            <li id='car-Btn'><a><span class="ico gray shadow window"></span><b>Vehículos</b></a></li>
+            <li id='docu-Btn'><a><span class="ico gray shadow window"></span><b>Nuevos conductores registrados</b></a></li>
+    		<li><a href="javascript:dataPoster('car-0-new')"><span class="ico gray shadow window"></span><b>Agregar vehículo</b></a></li>
+            <li><a href="javascript:dataPoster('driver-0-new')"><span class="ico gray shadow window"></span><b>Agregar conductor</b></a></li>
+            <li id='hist-Btn'><a><span class="ico gray shadow window"></span><b>Histórico de registros de conductores</b></a></li>
+            <li><a href="drivers"><span class="ico gray shadow window"></span><b>Conductores</b></a></li>
+            <li id="car/expired-Btn"><a><span class="ico gray shadow window"></span><b>Afiliaciones vencidas</b></a></li>
+            <li><a href="services"><span class="ico gray shadow window"></span><b>Servicios por estado</b></a></li>
+    <!--        <li id='realtime/service-Btn'><a><span class="ico gray shadow window"></span><b>Solicitar servicio</b></a></li> -->
+    		<li><a href="javascript:dataPoster('service-0-request')"><span class="ico gray shadow window"></span><b>Solicitar servicio</b></a></li>
+            <li id='complain-Btn'><a><span class="ico gray shadow window"></span><b>
+            Quejas y reclamos
+            </b></a></li>
+            <li id='schedule-Btn'><a><span class="ico gray shadow window"></span><b>Agendamientos</b></a></li>
+            <li id='realtime/schedule-Btn'><a><span class="ico gray shadow window"></span><b>Agendamientos (tiempo real)</b></a></li>
+            <li id='notifier-Btn'><a><span class="ico gray shadow window"></span><b>Notificaciones masivas</b></a></li>
+            <li id="report/new-Btn"><a><span class="ico gray shadow window"></span><b>Reportes de servicios</b></a></li>
+            <li id='driver-Btn'><a><span class="ico gray shadow window"></span><b>Conductores 1</b></a></li>
+    <!--         <li id="report/lastservices/1-Btn"><a><span class="ico gray shadow window"></span><b>Buscar conductor(Placa)</b></a></li>
+            <li id="report/lastservices/2-Btn"><a><span class="ico gray shadow window"></span><b>Buscar conductor(Móvil)</b></a></li>
+ -->    @elseif (Auth::user()->role_id == 2)
+        <!--<li id='appversion-Btn'><a><span class="ico gray shadow window"></span><b>Versiones de aplicación</b></a></li> -->
+            <li id='administrator-Btn'><a><span class="ico gray shadow window"></span><b>Operadores</b></a></li>
+            <li id='user-Btn'><a><span class="ico gray shadow window"></span><b>Usuarios App</b></a></li>
+            <li id='car-Btn'><a><span class="ico gray shadow window"></span><b>Vehículos</b></a></li>
+            <li id='docu-Btn'><a><span class="ico gray shadow window"></span><b>Nuevos conductores (App y Web)</b></a></li>
+    		<!--<li><a href="javascript:dataPoster('car-0-new')"><span class="ico gray shadow window"></span><b>Agregar vehículo</b></a></li>-->
+            <li><a href="drivers"><span class="ico gray shadow window"></span><b>Conductores</b></a></li>
+            <li><a href="javascript:dataPoster('car-0-new')"><span class="ico gray shadow window"></span><b>Agregar vehículo</b></a></li>
+    		<li><a href="javascript:dataPoster('driver-0-new')"><span class="ico gray shadow window"></span><b>Agregar conductor</b></a></li>
+        <li id='hist-Btn'><a><span class="ico gray shadow window"></span><b>Histórico de registros de conductores</b></a></li>
+            <!--<li id='docu-Btn'><a><span class="ico gray shadow window"></span><b>Registro de conductores</b></a></li>-->
+            <li id="car/expired-Btn"><a><span class="ico gray shadow window"></span><b>Afiliaciones vencidas</b></a></li>
+            <li><a href="services"><span class="ico gray shadow window"></span><b>Servicios por estado</b></a></li>
+            <li id='complain-Btn'><a><span class="ico gray shadow window"></span><b>Quejas y reclamos</b></a></li>
+            <li id='schedule-Btn'><a><span class="ico gray shadow window"></span><b>Agendamientos</b></a></li>
+            <li id='notifier-Btn'><a><span class="ico gray shadow window"></span><b>Notificaciones masivas</b></a></li>
+            <li id="report/new-Btn"><a><span class="ico gray shadow window"></span><b>Reportes de servicios</b></a></li>
+        @elseif (Auth::user()->role_id == 4)
+            <li id='appversion-Btn'><a><span class="ico gray shadow window"></span><b>Versiones de aplicación</b></a></li>
+            <!-- <li id='customer-Btn'><a><span class="ico gray shadow window"></span><b>Administración clientes</b></a></li> -->
+            <li id='administrator-Btn'><a><span class="ico gray shadow window"></span><b>Administración clientes</b></a></li>
+            <!-- <li id='docu-Btn'><a><span class="ico gray shadow window"></span><b>Nuevos conductores registrados</b></a></li> -->
+            <li id='country-Btn'><a><span class="ico gray shadow window"></span><b>Países</b></a></li>
+            <li id='department-Btn'><a><span class="ico gray shadow window"></span><b>Departamentos</b></a></li>
+            <li id='city-Btn'><a><span class="ico gray shadow window"></span><b>Ciudades</b></a></li>
+        @elseif (Auth::user()->role_id == 5)
+            <li id='administrator-Btn'><a><span class="ico gray shadow window"></span><b>Usuarios CMS</b></a></li>
+        @else
+    		<li><a href="services"><span class="ico gray shadow window"></span><b>Servicios por estado</b></a></li>
+    		<li><a href="javascript:dataPoster('service-0-request')"><span class="ico gray shadow window"></span><b>Solicitar servicio</b></a></li>
+            <li id='complain-Btn'><a><span class="ico gray shadow window"></span><b>Quejas y reclamos</b></a></li>
+            <li id='schedule-Btn'><a><span class="ico gray shadow window"></span><b>Agendamientos</b></a></li>
+            <li id='realtime/schedule-Btn'><a><span class="ico gray shadow window"></span><b>Agendamientos (tiempo real)</b></a></li>
+<!--         <li id="report/lastservices/1-Btn"><a><span class="ico gray shadow window"></span><b>Buscar conductor(Placa)</b></a></li>
+        <li id="report/lastservices/2-Btn"><a><span class="ico gray shadow window"></span><b>Buscar conductor(Móvil)</b></a></li>
+ -->    @endif
+        @endif
+    </ul>
+</div>
+<script type="text/javascript">var BASE = "{{URL::base()}}";</script>
+{{HTML::script('js/leftMenu.js')}}
+

@@ -1,0 +1,179 @@
+/**
+ * @package Helix Framework
+ * @author JoomShaper http://www.joomshaper.com
+ * @copyright Copyright (c) 20010 - 2013 JoomShaper
+ * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or later
+*/
+
+a, a:hover {
+	text-decoration:none;
+	.transition(all 200ms);
+}
+
+//Page header
+.page-header{
+	padding-bottom: 10px;
+	margin: 0 0 20px;
+        border: none;
+}
+
+.entry-title {
+  margin-bottom: 15px !important;
+}
+
+.entry-content {
+  margin-bottom: 25px;
+}
+
+//Entry meta
+.entry-meta {
+	&.muted{
+                position: relative;
+                background: none;
+                border: 2px solid @black;
+                color: @black;
+		padding:15px;
+		margin-bottom:15px;
+		font-size:12px;
+                .border-radius(50px);
+		>span,
+		>time{
+			margin:0 5px;
+		        font-size:14px;
+		}
+	}
+	ul {
+		margin:0 5px;
+		&.actions {
+			float:right;
+			li {
+				display:inline-block;
+				&.print-icon {
+					a {
+						&::before {
+							content:"\f02f";
+						}
+					}
+				}
+				
+				&.email-icon {
+					a {
+						&::before {
+							content:"\f003";
+						}
+					}
+				}
+				
+				&.edit-icon {
+					a {
+						&::before {
+							content:"\f044";
+						}
+					}
+				}
+				a {
+					font-family:FontAwesome;
+					display:block;
+					font-size:14px;
+					margin-left:5px;
+					img {
+						display:none;
+					}	
+				}
+				
+				//Joomla 3.0
+				a{
+					span{
+						display:none;
+					}
+					
+				}
+			}
+		}
+	}
+}
+
+//Page navigation
+ul {
+        padding-left: 0;
+	&.pagenav {
+		list-style:none;
+                padding: 0;
+		clear: both;
+		margin-top: 10px;
+		margin-left: 0;
+		overflow: hidden;
+		.pagenav-prev {
+			float:left;
+		}
+		.pagenav-next {
+			float:right;
+		}
+	}
+}
+
+//Joomla Core
+dl {
+	dt,dd {
+		display:inline;
+	}
+}
+
+//Labels
+label{
+	&.invalid{
+		color:lighten(@red,10%);
+	}
+}
+
+.pagination ul > li > a, .pagination ul > li > span {
+   background: none !important;
+   border: 2px solid @black !important;
+   .border-radius(50px) !important;
+   color: @black !important;
+   text-shadow: none;
+   opacity: 1 !important;
+   padding: 10px 20px;
+   margin-right: 5px;
+   &:hover,
+   &:focus {
+   background: @black !important;
+   color: @white !important;
+	}
+}
+
+ul {
+  margin-left: 12px;
+}
+ol {
+  padding-left: 12px;
+}
+
+.leading-0 {
+  padding-bottom: 35px;
+}
+.leading-1,
+.leading-2,
+.leading-3,
+.leading-4,
+.leading-5 {
+  margin-top: 35px;
+  padding-bottom: 35px;
+}
+
+.items-row {
+  margin-bottom: 15px !important;
+  padding-bottom: 35px;
+}
+
+.pager li > a,
+.pager li > span {
+  color: @black !important;
+  border: 2px solid @black;
+  background: transparent;
+  border-radius: 50px;
+  &:hover {
+    color: @white !important;
+    background: @black;
+  }
+}

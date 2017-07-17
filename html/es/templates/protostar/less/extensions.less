@@ -1,0 +1,172 @@
+.uk-icon-button {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 0;
+  background: none;
+  line-height: 30px;
+  font-size: 16px;
+  text-align: center;
+  border: none;
+  text-shadow: none;
+  margin-left: 2px;
+}
+
+.sprocket-lists .sprocket-lists-title {
+  color: @text_color !important;
+}
+
+.sprocket-lists .sprocket-lists-title:hover {
+  color: @white !important;
+}
+
+.ns2-tools {margin-top: -8px;}
+.ns2-page-inner {position:relative; margin-top: -10px;}
+
+.ns2-created:before {
+    content: "\f073";
+    font-family: FontAwesome;
+}
+
+h4.ns2-title {font-weight:normal !important; text-transform:uppercase;}
+
+.pad-spa { padding: 40px 0; }
+
+.uk-panel-title {
+    color: #444444;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 24px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    text-transform: none;
+}
+
+#horizon {
+  background: url() 50% 0 repeat fixed; 
+  min-height: 300px;
+  height: 100%;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  background-size: cover;
+}
+ 
+#horizon article{
+        margin: 0 auto;
+	padding: 35px !important;
+	min-height:200px;
+	z-index:1;
+        max-width:1170px;
+}
+
+#vertical {
+  background: url() 50% 0 repeat fixed; 
+  min-height: 300px;
+  height: 100%;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  background-size: cover;
+}
+ 
+#vertical article{
+        margin: 0 auto;
+	padding: 35px !important;
+	min-height:200px;
+	z-index: 1;
+	max-width:1170px;
+        text-align: left;
+}
+
+.uk-text-white {
+  color: #fff !important;
+}
+
+/* Modifier: `uk-grid-divider-2`
+ ========================================================================== */
+/*
+ * Horizontal divider
+ * Does not work with `uk-push-*`, `uk-pull-*` and not if the columns float into the next row
+ */
+.uk-grid-divider-2:not(:empty) {
+  margin-left: -25px;
+  margin-right: -25px;
+}
+.uk-grid-divider-2 > * {
+  padding-left: 25px;
+  padding-right: 25px;
+}
+.uk-grid-divider-2 > [class*='uk-width-1-']:not(.uk-width-1-1):nth-child(n+2),
+.uk-grid-divider-2 > [class*='uk-width-2-']:nth-child(n+2),
+.uk-grid-divider-2 > [class*='uk-width-3-']:nth-child(n+2),
+.uk-grid-divider-2 > [class*='uk-width-4-']:nth-child(n+2),
+.uk-grid-divider-2 > [class*='uk-width-5-']:nth-child(n+2),
+.uk-grid-divider-2 > [class*='uk-width-6-']:nth-child(n+2),
+.uk-grid-divider-2 > [class*='uk-width-7-']:nth-child(n+2),
+.uk-grid-divider-2 > [class*='uk-width-8-']:nth-child(n+2),
+.uk-grid-divider-2 > [class*='uk-width-9-']:nth-child(n+2) {
+    border-left: medium none transparent;
+    position: relative;
+  &::before {
+    content: "\f105";
+    display: block;
+    font-family: FontAwesome;
+    font-size: 30px;
+    left: 0px;
+    position: absolute;
+    top: 50%;
+  }
+}
+/* Tablet and bigger */
+@media (min-width: 768px) {
+  .uk-grid-divider-2 > [class*='uk-width-medium-']:not(.uk-width-medium-1-1):nth-child(n+2) {
+    border-left: medium none transparent;
+    position: relative;
+  &::before {
+    content: "\f105";
+    display: block;
+    font-family: FontAwesome;
+    font-size: 30px;
+    left: 0px;
+    position: absolute;
+    top: 50%;
+  }
+ }
+}
+/* Desktop and bigger */
+@media (min-width: 960px) {
+  .uk-grid-divider-2 > [class*='uk-width-large-']:not(.uk-width-large-1-1):nth-child(n+2) {
+    border-left: medium none transparent;
+    position: relative;
+  &::before {
+    content: "\f105";
+    display: block;
+    font-family: FontAwesome;
+    font-size: 30px;
+    left: 0px;
+    position: absolute;
+    top: 50%;
+  }
+ }
+}
+/* Large screen and bigger */
+@media (min-width: 1220px) {
+  /*
+     * Large gutter
+     */
+  .uk-grid-divider-2:not(.uk-grid-preserve):not(:empty) {
+    margin-left: -35px;
+    margin-right: -35px;
+  }
+  .uk-grid-divider-2:not(.uk-grid-preserve) > * {
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+  .uk-grid-divider-2:not(.uk-grid-preserve):empty {
+    margin-top: 35px;
+    margin-bottom: 35px;
+  }
+}

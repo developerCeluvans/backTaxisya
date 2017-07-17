@@ -1,0 +1,1 @@
+<?php echo view('layouts.dashboard')->with(get_defined_vars())->render(); ?>

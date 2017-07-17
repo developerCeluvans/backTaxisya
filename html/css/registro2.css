@@ -1,0 +1,116 @@
+*{
+	margin: 0;
+	padding: 0;
+	list-style-type: none; 
+}
+body,html{
+	height: 100%;
+    font-family: 'Open Sans', sans-serif;
+}
+.registro .container{
+    width: 100%;
+    max-width: 600px;
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px #fff inset;
+    border: none;
+}
+.registro{
+    background-color: #fff;
+    background-image: url(../img/banner4.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-attachment: fixed;
+}
+.registro_pasajeros{
+    background-color: #fff;
+    background-image: url(../img/pasajeros.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-attachment: fixed;
+}
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #FF9E42;
+    color: #fff;
+    cursor: pointer;
+    display: table;
+    border-radius: 30px;
+}
+.fileUpload span{
+    color: #fff;
+}
+.fileUpload input.photo,
+.fileUpload input.files {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+form.registro_taxistas {
+    padding: 30px 0;
+    margin: 30px auto;
+    border: 1px solid #FF9E42;
+    box-shadow: 0 0 3px #000;
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0.5);
+}
+.registro_taxistas input {
+    border-radius: 5px;
+    border: 1px solid #FF9E42;
+    background: transparent;
+    padding: 8px;
+    color: #FF9E42;
+    width: 100%;
+    max-width: 360px;
+    margin: auto;
+    display: table;
+    text-transform: uppercase;
+}
+::-webkit-input-placeholder { 
+  color: #FF9E42;
+}
+::-moz-placeholder {
+  color: #FF9E42;
+}
+::-ms-input-placeholder {
+  color: #FF9E42;
+}
+.registro_taxistas .text-tag {
+    display: table!important;
+    margin: 10px auto!important;
+    color: #DCDCDC;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-family: 'Open Sans', sans-serif!important;
+}
+select.vehiculo_exist {
+    display: table;
+    margin: auto;
+    width: 365px;
+    border-radius: 10px;
+    padding: 10px;
+    color: #E0E0E0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+select.vehiculo_exist option {
+    background-color: #121B23;
+}
+input.enviar_registro {
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #FF9E42;
+    border: 1px solid #FF9E42;
+    display: table;
+    width: 28%;
+}

@@ -1,0 +1,317 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Creación de servicio</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- CSS Stylesheet-->
+        <link type="text/css" rel="stylesheet" href="components/bootstrap/bootstrap.css" />
+        <link type="text/css" rel="stylesheet" href="components/bootstrap/bootstrap-responsive.css" />
+        <link type="text/css" rel="stylesheet" href="/styles/zice.style.css"/>
+        <link type="text/css" rel="stylesheet" href="/styles/select2.css"/>
+
+        <script type="text/javascript" src="/libs/jquery-1.10.2.js"></script>
+        <script type="text/javascript" src="/libs/jquery-migrate-1.2.1.min.js"></script>
+        <script type="text/javascript" src="/libs/underscore.js"></script>
+        <script type="text/javascript" src="/libs/backbone.js"></script>
+        <!-- <script type="text/javascript" src="/js/schedule.js"></script> -->
+        <!-- <script type="text/javascript" src="/js/cities.js"></script> -->
+        <script type="text/javascript" src="/js/service.js"></script>
+        <script type="text/javascript" src="/js/user.js"></script>
+        <script type="text/javascript" src="/js/address.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="/js/serializeObject.js"></script>
+
+        <script type="text/javascript" src="/components/ui/jquery.ui.min.js"></script> 
+        <script type="text/javascript" src="/components/bootstrap/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/components/ui/timepicker.js"></script>
+        <script type="text/javascript" src="/components/colorpicker/js/colorpicker.js"></script>
+        <!-- <script type="text/javascript" src="/components/form/form.js"></script>-->
+        <script type="text/javascript" src="/components/elfinder/js/elfinder.full.js"></script>
+        <script type="text/javascript" src="/components/datatables/dataTables.min.js"></script>
+        <!-- <script type="text/javascript" src="/components/fancybox/jquery.fancybox.js"></script>-->
+        <!-- <script type="text/javascript" src="/components/jscrollpane/jscrollpane.min.js"></script>-->
+        <!-- <script type="text/javascript" src="/components/editor/jquery.cleditor.js"></script>-->
+        <!-- <script type="text/javascript" src="/components/chosen/chosen.js"></script> -->
+        <script type="text/javascript" src="/libs/select2.min.js"></script>
+        <script type="text/javascript" src="/components/validationEngine/jquery.validationEngine.js"></script>
+        <script type="text/javascript" src="/components/validationEngine/jquery.validationEngine-en.js"></script>
+        <script type="text/javascript" src="/components/fullcalendar/fullcalendar.js"></script>
+        <script type="text/javascript" src="/components/flot/flot.js"></script>
+        <script type="text/javascript" src="/components/uploadify/uploadify.js"></script>       
+        <script type="text/javascript" src="/components/Jcrop/jquery.Jcrop.js"></script>
+        <script type="text/javascript" src="/components/smartWizard/jquery.smartWizard.min.js"></script>
+        <script type="text/javascript" src="/js/jquery.cookie.js"></script>
+        <!-- <script type="text/javascript" src="/js/zice.custom.js"></script> -->
+
+        <script>
+            //var currentSchedules;
+            //console.log('http://' + window.location.host);
+            //console.log(window.location.href);
+            var currentAddressGroup = new Addresses();
+            var servicesIntervals = [];
+            var currentService;
+            var serviceStateView;
+            var userDirsView;
+            var socket = io.connect('//' + window.location.host);</script>
+
+
+        <style>
+            legend.datosPersona{
+                margin-bottom:17px !important;
+            }
+
+            #usr_telephone{
+                padding: 1em;
+                display: inline-block;
+                margin-right: 70px;
+                font-size: 1.5em;
+                font-weight: bold;
+                width: 30%;
+                margin-bottom: 15px;
+                background: rgb(252, 252, 170);
+                text-align: center;
+            }
+
+            .bigLabel{
+                display: inline-block;
+                font-size: 1.5em;
+                margin-right: 14px;
+            }
+
+            .bigBtn{
+                padding: 1.5em 3em;
+                display: inline-block;
+                margin-bottom: 15px;
+                margin-right: 15px;
+            }
+
+            .btn-agregar{
+                float: left;
+                margin-top: 0px;
+                padding: 11px 20px;
+            }
+
+            .btnSolicitar{
+                padding: 10px;
+                margin-top: -8px;
+            }
+
+            .div-user-data{
+                float: left;
+            }
+
+            .medInput{
+                display: inline-block!important;
+                padding: .5em 1em !important;
+                margin-right: 2em;
+                margin-left: 8px;
+                font-size: 1.3em!important;
+                text-align:center;
+            }
+
+            table.table-bordered tr{
+                height: 45px;
+                font-size:18px;
+            }
+
+
+            table.table-bordered tr:nth-child(2n+1){
+                background:rgb(235, 235, 235);
+            }
+
+            label.inline-lable{
+                display:inline-block;
+                font-size: 1.2em;
+            }
+
+            legend{
+                color:#5bc0de!important;
+                font-size:2.5em;
+                text-shadow:1px 1px 3px rgba(0,0,0,0.2);
+            }
+
+            .dirServ{
+                margin-top: 1em;
+                margin-bottom: 1em;
+            }
+
+            .smallIn{
+                display:inline-block !important;
+                width:40px !important;
+                padding: 7px 5px !important;
+                margin:0 10px;
+                font-weight: bold;
+            }
+
+            .mediumIn{
+                display:inline-block !important;
+                width:160px !important;
+                padding: 7px 5px !important;
+                margin:0 15px;
+                font-weight: bold;
+            }
+
+            div.inputCont{
+                display: inline-block;
+                width: 150px;
+                margin-right: 15px;
+                text-align: center;
+                border: 1px solid rgba(0,0,0,0.3);
+                height: 100px;
+            }
+
+            .inputCont label{
+                display: block;
+                padding: 8px 0;
+                background: rgb(235, 235, 235);
+                margin: 0;
+            }
+
+            .inputCont input{
+                display: block;
+                width: 100%!important;
+                height: 66px;
+                box-sizing: border-box;
+                margin-bottom: 0!important;
+                text-align:center;
+                font-size:1.3em;
+                font-weight:bold;
+            }
+
+            .inputCont textarea{
+                display: inline-block;
+                width: 100%!important;
+                height: 66px;
+                box-sizing: border-box;
+                margin-bottom: 0!important;
+                text-align:center;
+                font-size:1.3em;
+                font-weight:bold;
+                vertical-align: middle;
+            }
+            
+            .small input,.small textarea{
+                font-size: 1em!important;
+            }
+
+            .yellow input, .yellow label{
+                background:#F1DC57 !important;
+            }
+
+            .chzn-select{
+                width: 140px;
+            }
+
+
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Nuevo servicio</h1>
+            <hr />
+            <div class="page"></div>
+        </div>
+        <!-- Plantillas para vistas -->
+        <script type="text/template" id="service-form-template">
+            <form>
+            <fieldset>
+            <legend class="datosPersona">Datos de la persona:</legend>
+            <label class="bigLabel" for="usr_telephone">Teléfono:</label> <input type="text" id="usr_telephone" name="usr_telephone" value="" /><input class="btn bigBtn btn-info" type="button" value="Buscar" id="search_user" name="search_user"  />
+            <div id="usr-data" class="div-user-data">
+            <label class="bigLabel">Nombre y apellido:</label>  <input class="medInput" type="text" name="usr_name" value="" />
+            <!-- <label class="bigLabel">Apellido:</label>  <input class="medInput" type="text" name="usr_lastname" value="" /> -->
+            </div>
+            <input type="button" class="btn bigBtn btn-info btn-agregar" value="Agregar" id="add_user" name="add_user" />
+            </fieldset>
+            <div id="usr_prefered_dirs">
+            </div>
+            <div id="dir_data">
+            </div>
+            <div id="serviceData">
+            </div>
+            </form>
+        </script>
+        <!-- Plantilla de datos de usuario-->
+        <script type="text/template" id="user-data-template">
+            <label class="bigLabel">Nombre y apellido:</label>  <input class="medInput" type="text" name="usr_name" id="usr_name" value="<%= user.name %>" />
+            <!-- <label class="bigLabel">Apellido:</label>  <input class="medInput" type="text" name="usr_lastname" id="usr_lastname" value="<%= user.lastname %>" /> -->
+            <input type="hidden" name="usr_id" value = "<%= user.id %>" />
+        </script>
+        <!-- Plantilla en blanco de datos de usuario-->
+        <script type="text/template" id="user-blank-template">
+            Nombre y apellido:  <input type="text" name="usr_name" id="usr_name" value="" />
+            <!-- Apellido:  <input type="text" name="usr_lastname" id="usr_lastname" value="" /> -->
+        </script>
+        <!-- Plantilla de direcciones de usuario-->
+        <script type="text/template" id="user-dirs-template">
+            <fieldset>
+            <legend></legend>
+            <%= user_dirs %>
+            </fieldset>
+        </script>
+
+        <!-- Plantilla de dirección de servicio-->
+        <script type="text/template" id="service-dir-template">
+            <fieldset>
+
+            <legend style="margin-bottom:0.7em !important">Dirección de servicio:</legend>
+            <div class="dirServ">
+            <select name="dir_index_id" id="dir_index_id" class="chzn-select">
+            <option value="Calle" >Calle</option>
+            <option value="Carrera" >Carrera</option>
+            <option value="Transversal" >Transversal</option>
+            <option value="Avenida" >Avenida</option>
+            <option value="Diagonal" >Diagonal</option>
+            </select>
+            <input type="text" id="dir_comp1" name="dir_comp1" class="xxsmall smallIn" value="<%= dir.comp1 %>" size="4"/>
+            <label class="inline-lable">#</label> <input type="text" id="dir_comp2" name="dir_comp2" class="xxsmall smallIn" value="<%= dir.comp2 %>" size="4"/>
+            - <input type="text" id="dir_no" name="dir_no" class="xxsmall smallIn" value="<%= dir.no %>" size="4"/>
+            <label class="inline-lable">Obs:</label> <input type="text" id="dir_obs" name="dir_obs" value="<%= dir.obs %>" size="20" class="mediumIn"/>
+            <label class="inline-lable">Barrio:</label> <input type="text" id="dir_barrio" name="dir_barrio" value="<%= dir.barrio %>" size="20" class="mediumIn"/>
+            <input type="button" class="btn btn-warning btnSolicitar" value="Solicitar servicio" id="request" name="request" />
+            </div>
+            </fieldset>
+        </script>
+        <!-- Plantilla de dirección de servicio-->
+        <script type="text/template" id="service-dir-blank-template">
+            <fieldset>
+            <legend style="margin-bottom:0.7em !important">Dirección de servicio:</legend>
+            <div class="dirServ">
+            <select name="dir_index_id" class="chzn-select" >
+            <option value="Calle" >Calle</option>
+            <option value="Carrera" >Carrera</option>
+            <option value="Transversal" >Transversal</option>
+            <option value="Avenida" >Avenida</option>
+            <option value="Diagonal" >Diagonal</option>
+            </select>
+            <input type="text" id="dir_comp1" name="dir_comp1" class="xxsmall smallIn" value="" size="4"/>
+            <label class="inline-lable">#</label> <input type="text" id="dir_comp2" name="dir_comp2" class="xxsmall smallIn" value="" size="4"/>
+            - <input type="text" id="dir_no" name="dir_no" class="xxsmall smallIn" value="" size="4"/>
+            <label class="inline-lable">Obs:</label> <input type="text" id="dir_obs" name="dir_obs" value="" size="20" class="mediumIn"/>
+            <label class="inline-lable">Barrio:</label> <input type="text" id="dir_barrio" name="dir_barrio" value="" size="20" class="mediumIn"/>
+            <input type="button" class="btn btn-warning btnSolicitar" value="Solicitar servicio" id="request1" name="request1" />
+            </div>
+            </fieldset>
+        </script>
+        <script type="text/template" id="service-data-template">
+            <fieldset>
+            <legend style="margin-bottom:0.7em !important" >Datos de servicio:</legend>
+            <div class="inputCont"> <label>Cod. de servicio:</label> <input type="text" name="srv_id" value="<%= service.id %>" size="6"/></div>
+            <% if (service.state.descrip === 'Finalizado') { %>
+                <div class="inputCont small"><label>Estado:</label> <input type="text" name="srv_state" value="Ya llegó el conductor" size="10"/></div>
+            <% } else { %>
+                <div class="inputCont small"><label>Estado:</label> <input type="text" name="srv_state" value="<%= service.state.descrip %>" size="10"/></div>
+            <% } %>
+
+            <input type="button" class="btn btn-danger" value="Cancelar" name="cancelService" id="cancelService" />
+            <% if(service.status_id !== '1' && service.driver!==null){ %>
+            <div class="inputCont small"><label>Conductor:</label> <textarea name="srv_driver" size="10"><%= service.driver.name %> <%= service.driver.lastname %> <%= service.driver.cellphone %></textarea></div>
+            <div class="inputCont yellow"><label>Móvil de conductor:</label><input type="text" name="srv_driver_movil" value="<%= service.driver.car.movil %>" size="10"/></div>            
+            <div class="inputCont yellow"><label>Vehículo:</label><input type="text" name="srv_car" value="<%= service.driver.car.placa %>" size="10"/></div>
+            <% } %>
+            </fieldset>
+        </script>
+        <script type="text/javascript" src="/js/backboneCode.js"></script>
+        <script type="text/javascript" src="/js/codeService.js"></script>
+    </body>	
+</html>

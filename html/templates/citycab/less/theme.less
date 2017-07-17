@@ -1,0 +1,316 @@
+/**
+ * @package Helix Framework
+ * @author JoomShaper http://www.joomshaper.com
+ * @copyright Copyright (c) 20010 - 2013 JoomShaper
+ * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or later
+*/
+.center {
+	text-align:center;
+	th,tr,td{
+		text-align:center;
+	}
+}
+
+.row-fluid {
+	margin-bottom:20px;
+	&:first-child{
+		margin-bottom:0;
+	}
+}
+
+#sp-phone {
+  h2 {
+    margin: 0;
+    margin-top: 3px;
+  }
+}
+
+/*Header start here */
+#sp-header-wrapper{
+	padding:35px 0;
+        .transition(all 500ms);
+	.logo-wrapper{
+		.logo{
+			background-position:0 50%;
+			background-repeat:no-repeat;
+		}
+		.logo-text{
+			font-size:24px;
+		}
+		.logo-slogan{
+			font-size:11px;
+		}
+	}
+}
+#sp-taxi-wrapper {
+  .row-fluid [class*="span"] {
+  min-height: 12px;
+  }
+  height: 12px;
+  background-image: url("../images/taxi-stripe.jpg");
+  background-repeat: repeat-x;
+  background-position: center top;
+}
+
+.body-innerwrapper{
+	overflow-x:hidden;
+}
+
+#sp-parallax-wrapper {
+	background:@white;
+        margin-bottom: 0;
+        .module {
+	  margin-top:0px !important;
+        }
+}
+
+#sp-parallax-2-wrapper {
+	background:@white;
+        margin-bottom: 0;
+        .module {
+	  margin-top:0px !important;
+        }
+}	
+
+#sp-main-body-wrapper {
+	padding:35px 0;
+	border-top:1px solid @white;
+	border-bottom:1px solid @white;
+}
+
+/*Feature main title  start here */
+#sp-feature-wrapper{
+	padding: 0;
+	text-align:center;
+	
+	#feature{
+		color:@white;
+		h1{
+			color:@white;
+			font-size: 72px;
+			line-height: 100px;
+			font-weight: 400;
+			margin-bottom: 10px;
+		}
+		p{
+			font-size:24px;
+			line-height:120%;
+		}
+	}
+}
+
+/*-- Middle --*/
+#sp-middle-wrapper {
+        color: @white;
+        padding: 35px 0;
+        background: @black;
+}
+
+/*-- Intop --*/
+#sp-intop-wrapper {
+        padding: 35px 0;
+        background: @white;
+        border-bottom:1px solid darken(@white, 5%)
+}
+
+/*-- User wrapper --*/
+#sp-users-wrapper {
+        padding:35px 0;
+	border-bottom:1px solid darken(@white, 5%);
+}
+
+/*-- Inner --*/
+#sp-inner-wrapper {
+        padding: 35px 0;
+        background: darken(@bg_color, 5%);
+        border-bottom:1px solid darken(@white, 8%)
+}
+
+//Breadcrumb
+ul{
+	&.breadcrumb{
+		margin:0;
+		padding-left:0;
+		padding-right:0;
+		background:transparent;
+	}
+}	
+
+.sp-border {
+	position:relative;
+	&::after {
+		content: " ";
+		position:absolute;
+		top:0;
+		left:0;
+		width:100%;
+		height:1px;
+	}
+}
+
+/*-- Positions --*/
+#sp-position1,
+#sp-position2,
+#sp-position3,
+#sp-position4 {
+	padding:35px 0;
+}
+
+/*Footer*/
+#sp-footer-wrapper {
+	padding:30px 0;
+        line-height: 30px;
+	.sp-border();
+	ul {
+		.unstyled();
+		li {
+			display:inline-block;
+			margin-left:10px;
+			font-size:12px;
+			a {
+				color:@grayLight;
+			}
+		}
+	}
+}
+
+//Footer
+#sp-footer-wrapper {
+	ul {
+		display:inline-block;
+		&.nav {
+			display:inline-block;
+			list-style:none;
+			padding:0;
+			margin:0 5px;
+			li {
+				display:inline-block; 
+				margin:0 5px;
+				a {
+					display:block;
+					&:hover{
+						background:none;
+					}
+				}
+			}
+		}
+	}
+	
+	.sp-totop{
+		display:inline-block;
+		i{
+			color:@grayLight;
+		}
+		small{
+			display:none;
+		}
+	}
+
+
+	
+	.helix-framework {
+		display:inline-block;
+		
+		.helix-logo {
+			display:block;
+			width:130px;
+			height:40px;
+			text-indent:-9999px;
+			background:url(../images/helix-logo-white.png) no-repeat 0 0;
+		}
+	}
+
+	.copyright {
+		display:block;
+	}	
+	
+}
+.ltr #sp-footer-wrapper .helix-framework{
+	float:left;
+	margin-right:15px;
+}
+.ltr #sp-footer-wrapper #sp-footer2{
+	text-align:center;
+}
+
+.ltr #sp-footer-wrapper #sp-footer3{
+	text-align:right;
+}
+
+.rtl #sp-footer-wrapper .helix-framework{
+	float: right;
+	margin-left: 15px;
+}
+.rtl #sp-footer-wrapper #sp-footer2{
+	text-align: center;
+}
+
+.rtl #sp-footer-wrapper #sp-footer3{
+	text-align: left;
+}
+
+
+/*Buttons*/
+button,
+input[type='submit'],
+input[type='button'],
+submit {
+	.btn();
+}
+
+dl dt, dl dd {
+  display: block;
+}
+
+*[class*='uk-animation-'] { display: block !important; opacity: 1 !important; } /* uikit scrollspy ie9 fix */
+
+.counter {
+  margin-top: 25px !important;
+}
+
+.nav-collapse, .nav-collapse.collapse {
+  z-index: 9999;
+}
+
+h3.header {
+  letter-spacing: -2px;
+}
+
+legend {
+  border: none;
+}
+
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+  padding: 10px;
+  border-radius: 50px;
+  width: 100%;
+  border: 2px solid @black;
+}
+
+textarea {
+  padding: 15px;
+}
+
+header .image-logo {
+    height: 85px;
+    margin-top: -20px;
+    margin-bottom: -20px;
+}
+#sp-fixed-menu-wrapper .image-logo {
+    height: 49px;
+}

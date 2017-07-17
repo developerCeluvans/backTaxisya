@@ -1,0 +1,314 @@
+<script>window.location="http://192.237.188.107:3701/schedule";</script>
+<!doctype html>
+<html>
+    <head>
+        <title>Agendamientos</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- CSS Stylesheet-->
+        <link type="text/css" rel="stylesheet" href="/components/bootstrap/bootstrap.css" />
+        <link type="text/css" rel="stylesheet" href="/components/bootstrap/bootstrap-responsive.css" />
+        <link type="text/css" rel="stylesheet" href="/styles/zice.style.css"/>
+
+        <script type="text/javascript" src="/libs/jquery-1.10.2.js"></script>
+        <script type="text/javascript" src="/libs/underscore.js"></script>
+        <script type="text/javascript" src="/libs/backbone.js"></script>
+        <script type="text/javascript" src="components/bootstrap/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/schedule.js"></script>
+        <script type="text/javascript" src="/js/service.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="/js/code.js"></script>
+
+        <script type="text/javascript" src="/components/ui/jquery.ui.min.js"></script>
+        <script type="text/javascript" src="/components/bootstrap/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/components/ui/timepicker.js"></script>
+        <script type="text/javascript" src="/components/colorpicker/js/colorpicker.js"></script>
+        <script type="text/javascript" src="/components/form/form.js"></script>
+        <script type="text/javascript" src="/components/elfinder/js/elfinder.full.js"></script>
+        <script type="text/javascript" src="/components/datatables/dataTables.min.js"></script>
+        <script type="text/javascript" src="/components/fancybox/jquery.fancybox.js"></script>
+        <script type="text/javascript" src="/components/jscrollpane/jscrollpane.min.js"></script>
+        <script type="text/javascript" src="/components/editor/jquery.cleditor.js"></script>
+        <script type="text/javascript" src="/components/chosen/chosen.js"></script>
+        <script type="text/javascript" src="/components/validationEngine/jquery.validationEngine.js"></script>
+        <script type="text/javascript" src="/components/validationEngine/jquery.validationEngine-en.js"></script>
+        <script type="text/javascript" src="/components/fullcalendar/fullcalendar.js"></script>
+        <script type="text/javascript" src="/components/flot/flot.js"></script>
+        <script type="text/javascript" src="/components/uploadify/uploadify.js"></script>
+        <script type="text/javascript" src="/components/Jcrop/jquery.Jcrop.js"></script>
+        <script type="text/javascript" src="/components/smartWizard/jquery.smartWizard.min.js"></script>
+        <script type="text/javascript" src="/js/jquery.cookie.js"></script>
+        <script type="text/javascript" src="/js/zice.custom.js"></script>
+        <style >
+            #loading {
+                width: 100%;
+                height: 100%;
+                top: 0px;
+                left: 0px;
+                position: fixed;
+                display: block;
+                opacity: 0.7;
+                background-color: #fff;
+                z-index: 99;
+                text-align: center;
+            }
+
+            #loading img {
+                position: absolute;
+                top: 100px;
+                width: 250px;
+                left: 240px;
+                z-index: 100;
+            }
+        </style>
+        <script>
+            var currentSchedules;
+            console.log(window.location.href);
+            var socket = io.connect(window.location.href);
+            /*socket.on('news', function(data) {
+            console.log(data);
+            socket.emit('my other event', {my: 'data'});
+            });*/
+        </script>
+    </head>
+    <body>
+        <audio id="expireAlert">
+            <source src="/resource/mp3/School_Fire_Alarm-Cullen_Card-202875844.mp3" type="audio/mpeg">
+            Your browser does not support this audio format.
+        </audio>
+        <div id="loading">
+
+        </div>
+
+        <div class="container">
+            <h1>Agendamientos</h1>
+            <hr />
+            <div class="page"></div>
+        </div>
+        <!--
+        <div id='position'>
+            <div id='pos_x'></div>
+            <div id='pos_y'></div>
+            <div id='pos_z'></div>
+        </div>
+        <div id='content' style='width: 500px; height: 300px; margin: 0 0 20px 0; border: solid 1px #999; overflow-y: scroll;' >
+
+        </div>
+        <input type='text' id='name' style='width:350px;'/>
+        <input type='text' id='field' style='width:350px;'/>
+        <input type='button' id='send' value='send'/>
+        -->
+        <!-- Plantillas para vistas -->
+        <script type="text/template" id="schedule-list-template">
+            <hr />
+            <table class="table table-bordered table-striped" id="dataTable">
+            <thead>
+            <tr>
+            <th>#</th>
+            <th>Fecha de agendamiento</th>
+            <th>Nomb. Usuario</th>
+            <th>email Usuario</th>
+            <th>Tipo de agendamiento</th>
+            <th>Destino</th>
+            <th>Dirección</th>
+            <th>Est. Agendamiento</th>
+            <th>Cod. Servicio</th>
+            <th>Est. Servicio</th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% _.each(schedules, function(schedule) {%>
+            <tr id="item<%=schedule.id%>">
+            </tr>
+            <% }); %>
+            </tbody>
+            </table>
+        </script>
+        <!-- Plantilla para modelo -->
+        <script type="text/template" id="schedule-item-template">
+
+            <td><%= schedule.id%></td>
+            <td><%= schedule.service_date_time %></td>
+            <td><%= schedule.user.name %> <%= schedule.user.lastname%></td>
+            <td><%= schedule.user.email %></td>
+            <td><%= schedule.type.descrip%></td>
+            <td><%= schedule.destination %></td>
+            <td><%= schedule.address_index %> <%= schedule.comp1 %> #<%= schedule.comp2 %> <%= schedule.no %> <%= schedule.barrio %> <%= schedule.obs %></td>
+            <td id="scheduleStatus<%= schedule.id%>"><%= schedule.status%></td>
+            <td></td>
+            <td></td>
+            <td><a class="btn  btn-large " href="#"><i class="icon-plus"></i>Solicitar</a></td>
+            <% scheduleChecker(schedule); %>
+
+        </script>
+        <!-- Plantilla para modelo luego de servicio -->
+        <script type="text/template" id="schedule-service-template">
+
+            <td><%= schedule.id%></td>
+            <td><%= schedule.service_date_time %></td>
+            <td><%= service.user.name %> <%= service.user.lastname%></td>
+            <td><%= service.user.email %></td>
+            <td><%= schedule.type.descrip%></td>
+            <td><%= schedule.destination %></td>
+            <td><%= schedule.address_index %> <%= schedule.comp1 %> #<%= schedule.comp2 %> <%= schedule.no %> <%= schedule.barrio %> <%= schedule.obs %></td>
+            <td id="scheduleStatus<%= schedule.id%>"><%= schedule.status%></td>
+            <td><%= service.id %></td>
+            <td><%= service.state.descrip %></td>
+            <td><a class="btn  btn-large " href="#"><i class="icon-plus"></i>Solicitar</a></td>
+            <% console.log(schedule); %>
+
+        </script>
+        <!-- Plantilla para tacometro -->
+        <script type="text/template" id="service-status-template">
+            <img id="loading-image" src="/img/<%=stateImg%>" alt="<%=stateMsg%>" />
+        </script>
+        <script type="text/template" id="service-status-test">
+            <img id="loading-image" src="/img/c_dos.png" alt="En espera de conductor" />
+        </script>
+
+        <!-- Vistas-->
+        <script type="text/javascript">
+            var ScheduleListView = Backbone.View.extend({
+            el: '.page',
+            render: function() {
+            var that = this;
+            //var pendSchedules = new Schedules();
+            //console.log(this.collection);
+            var template = _.template($('#schedule-list-template').html(), {schedules: this.collection.toJSON()});
+            that.$el.html(template);
+            _.each(this.collection.toJSON(), function(schedule) {
+            tmpSchedule = new Schedule(schedule);
+            itemId = ".page tbody #item" + schedule.id;
+            var scheduleItemView = new ScheduleItemView({el: $(itemId), model: tmpSchedule});
+            scheduleItemView.render();
+            });
+            /*users.fetch({
+            success: function (users) {
+            var template = _.template($('#user-list-template').html(), {users: users.models});
+            that.$el.html(template);
+            }
+            })*/
+            }
+            });
+            var ScheduleItemView = Backbone.View.extend({
+            //el: '#item'+this.model.id,
+            /*initialize: function() {
+            this.model.on('change:status', function() {
+            if (this.model.get('status') === 5) {
+            this.$el.remove();
+            }
+            }, this);
+            },*/
+            render: function() {
+            var that = this;
+            //var pendSchedules = new Schedules();
+            //console.log(this.model);
+            //console.log(this.el);
+
+            var template = _.template($('#schedule-item-template').html(), {schedule: this.model.toJSON()});
+            that.$el.html(template);
+            /*users.fetch({
+            success: function (users) {
+            var template = _.template($('#user-list-template').html(), {users: users.models});
+            that.$el.html(template);
+            }
+            })*/
+            },
+            events: {
+            'click .btn-large': 'toService'
+            },
+            toService: function(ev) {
+            console.log(this.model.get('id'));
+            var schedule_id = this.model.get('id');
+            if (confirm("Desea convertir en servicio?")) {
+            socket.emit('toService', {schedule_id: schedule_id});
+            }
+            //alert(this.model.id);
+            }
+            });
+            //var scheduleListView = new ScheduleListView();
+            var ServiceStateView = Backbone.View.extend({
+            //el: '#loading',
+            render: function() {
+            var that = this;
+            //var pendSchedules = new Schedules();
+            //console.log(this.model.toJSON());
+
+            var state = parseInt(this.model.get('status_id'));
+            switch (state) {
+            case 1:
+            var stateImg = "c_dos.png";
+            var stateMsg = "En espera de conductor";
+            break;
+            case 2:
+            var stateImg = "c_tres.png";
+            var stateMsg = "Servicio confirmado";
+            break;
+            case 5:
+            var stateImg = "c_ocho.png";
+            var stateMsg = "Finalizado";
+            //setTimeout(unLoading(), 1000);
+            //$('#item' + parseInt(this.model.get('schedule_id'))).css('background-color', 'rgb(31, 255, 0)');//'#B42127');
+            break;
+            default:
+            var stateImg = "c_dos.png";
+            var stateMsg = "En espera de conductor";
+            console.log('dafault case');
+            break;
+            }
+            //console.log(state);
+            /*console.log(stateImg);
+            console.log(stateMsg);*/
+
+            tmpSchedule = new Schedule(this.model.get('schedule'));
+            currentServiceJson = this.model.toJSON();
+            //console.log(currentServiceJson);
+            //console.log(tmpSchedule);
+
+            /*itemId = ".page tbody #item" + parseInt(this.model.get('schedule_id'));//schedule.id;
+            //this.$el = itemId;
+            console.log(itemId);*/
+
+            //console.log(tmpSchedule.toJSON(), this.model.toJSON());
+
+            var template = _.template($('#schedule-service-template').html(), {schedule: tmpSchedule.toJSON(), service: currentServiceJson});
+            //console.log(template);
+            that.$el.html(template);
+
+            /*var scheduleItemView = new ScheduleItemView({el: $(itemId), model: tmpSchedule, service: this.model});
+            scheduleItemView.render();*/
+            /*
+            var template = _.template($('#service-status-template').html(), {stateImg: stateImg, stateMsg: stateMsg});//service: this.model.toJSON()});
+            //console.log(template);
+            that.$el.html(template);
+            */
+            }
+            });
+            var ServiceStateViewTest = Backbone.View.extend({
+            el: '#loading',
+            render: function() {
+            var that = this;
+            //var pendSchedules = new Schedules();
+            //console.log(this.model.toJSON());
+            var template = _.template($('#service-status-test').html(), {});
+            console.log(template);
+            that.$el.html(template);
+            }
+            });</script>
+        <!-- Router -->
+        <script type="text/javascript">
+            var Router = Backbone.Router.extend({
+            routes: {
+            "": "home"
+            }
+            });
+            var router = new Router;
+            router.on('route:home', function() {
+            // render user list
+            socket.emit('schedules');
+            })
+            Backbone.history.start();
+        </script>
+
+    </body>
+</html>

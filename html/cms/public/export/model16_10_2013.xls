@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" xmlns:html="http://www.w3.org/TR/REC-html40">
+<Styles>
+<Style ss:ID="sDT"><NumberFormat ss:Format="Short Date"/></Style>
+</Styles>
+<Worksheet ss:Name="Sheet1">
+    <Table>
+        <Row>
+            <Cell><Data ss:Type="String">NO</Data></Cell>
+            <Cell><Data ss:Type="String">Nomb. Usuario</Data></Cell>
+            <Cell><Data ss:Type="String">Conductor</Data></Cell>
+            <Cell><Data ss:Type="String">Vehiculo</Data></Cell>
+            <Cell><Data ss:Type="String">Estado</Data></Cell>
+            <Cell><Data ss:Type="String">Solicitud</Data></Cell>
+            <Cell><Data ss:Type="String">Finalización</Data></Cell>
+            <Cell><Data ss:Type="String">Calificacion</Data></Cell>
+            <Cell><Data ss:Type="String">Dirección</Data></Cell>
+        </Row>
+        <Row>
+            <Cell><Data ss:Type="Number">6385</Data></Cell>
+            <Cell><Data ss:Type="String"> Javier Varón</Data></Cell>
+            <Cell><Data ss:Type="String"> Javier Varón</Data></Cell>
+            <Cell><Data ss:Type="String"> BHH736 Renault citius</Data></Cell>
+            <Cell><Data ss:Type="String">Cancelado</Data></Cell>
+            <Cell ss:StyleID="sDT"><Data ss:Type="DateTime">2013-10-16T16:34:20</Data></Cell>
+            <Cell ss:StyleID="sDT"><Data ss:Type="DateTime">2013-10-16T16:35:18</Data></Cell>
+            <Cell><Data ss:Type="String"></Data></Cell>
+            <Cell><Data ss:Type="String"> Calle 1CBIS 18 34 Eduardo Santos </Data></Cell>
+        </Row>
+        <Row>
+            <Cell><Data ss:Type="Number">6386</Data></Cell>
+            <Cell><Data ss:Type="String"> jose gonzalez jose gonzalez</Data></Cell>
+            <Cell><Data ss:Type="String"> Javier Varón</Data></Cell>
+            <Cell><Data ss:Type="String"> BHH736 Renault citius</Data></Cell>
+            <Cell><Data ss:Type="String">Cancelado</Data></Cell>
+            <Cell ss:StyleID="sDT"><Data ss:Type="DateTime">2013-10-16T16:36:06</Data></Cell>
+            <Cell ss:StyleID="sDT"><Data ss:Type="DateTime">2013-10-16T16:37:27</Data></Cell>
+            <Cell><Data ss:Type="String"></Data></Cell>
+            <Cell><Data ss:Type="String"> Calle 1D 18 36 Eduardo Santos </Data></Cell>
+        </Row>
+        <Row>
+            <Cell><Data ss:Type="Number">6400</Data></Cell>
+            <Cell><Data ss:Type="String"> Javier Varón</Data></Cell>
+            <Cell><Data ss:Type="String"> Javier Varón</Data></Cell>
+            <Cell><Data ss:Type="String"> BHH736 Renault citius</Data></Cell>
+            <Cell><Data ss:Type="String">Cancelado</Data></Cell>
+            <Cell ss:StyleID="sDT"><Data ss:Type="DateTime">2013-10-16T16:52:58</Data></Cell>
+            <Cell ss:StyleID="sDT"><Data ss:Type="DateTime">2013-10-16T16:53:21</Data></Cell>
+            <Cell><Data ss:Type="String"></Data></Cell>
+            <Cell><Data ss:Type="String"> Calle 1CBIS 18 34 Eduardo Santos .</Data></Cell>
+        </Row>
+    </Table>
+</Worksheet>
+</Workbook>

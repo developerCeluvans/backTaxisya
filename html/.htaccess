@@ -1,0 +1,8 @@
+RewriteEngine on
+#RewriteCond %{HTTP_HOST} ^(.*)\.taxisya\.co
+#RewriteRule ^(.*)$ http://taxisya.co/sd/%1/$1 [L,NC,QSA]
+
+#If the host is "sub.domain.com"
+RewriteCond %{HTTP_HOST} ^celuvans.taxisya.co$ [NC]
+#Then rewrite any request to /subdomains
+RewriteRule ^((?!subdomains).*)$ /subdomains/celuvans/$1 [NC,L]

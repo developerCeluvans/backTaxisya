@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TaxisYa</title>
+	<link href="/templates/citycab/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">	
+	<link href="libraries/jquery.bxslider.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="libraries/jquery.bxslider.min.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+</head>
+<body>
+	<header>
+		<div class="container">
+			<div class="row">
+				<div class="logo">
+					<img src="img/logo.png" alt="logo">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<nav>
+						<ul>
+							<li><a href="#">Home</a></li>
+							<li><a href="#">Nosotros</a></li>
+							<li><a href="#">Servicios</a></li>
+							<li><a href="#">Trámites y consultas</a></li>
+							<li><a href="#">Contáctenos</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</header>
+	<section class="banner">
+		<ul class="bxslider">
+		  	<li><img src="img/banner1.jpg"/></li>
+		  	<li><img src="img/banner2.jpg"/></li>
+		  	<li><img src="img/banner3.jpg"/></li>
+		  	<li><img src="img/banner4.jpg"/></li>
+		</ul>
+		<div class="slider-text">
+			<h1>RUSH HOUR <br><span>WHO YOU GONNA CALL?</span><br>TAXIS YA</h1>
+			<h3>DESCARGA NUESTRA APP</h3>
+		</div>
+	</section>
+	<section class="transporte">
+		<div class="container">
+			<div class="transport">
+				<h1>Transpórtate con seguridad y confianza. ¡Estamos para ti! </h1>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="image-circle">
+						<img src="img/circle_transport1.png" alt="">
+					</div>
+					<div class="image-name">
+						<h4>PASAJEROS</h4>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="image-circle">
+						<img src="img/circle_transport2.png" alt="">
+					</div>
+					<div class="image-name">
+						<h4>TAXISTAS</h4>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="image-circle">
+						<img src="img/circle_transport3.png" alt="">
+					</div>
+					<div class="image-name">
+						<h4>RESERVAS</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="agendar">
+		<div class="container">
+			<div class="service">
+				<h1>AGENDAR SERVICIO</h1>
+			</div>
+			<form id="formulario" action="agendamiento.php" method="post">
+				<label for="cuando">Cuando*</label>
+				<input type="text" id="cuando" name="cuando">
+				<br>
+				<label for="hora">Hora*</label>
+				<input type="text" id="hora" name="hora">
+				<br>
+				<label for="inicio_destino">Inicio de destino*</label>
+				<input type="text" id="inicio_destino" name="inicio_destino">
+				<br>
+				<label for="fin_destino">Fin de destino*</label>
+				<input type="text" id="fin_destino" name="fin_destino">
+				<br>
+				<label for="phone">Phone: </label>
+				<input type="text" id="phone" name="phone">
+				<br>
+				<input type="submit" id="registro" name="registro" value="Registrate">
+			</form>
+		</div>
+	</section>
+	<section class="download">
+			<div class="quick-block">
+				<div class="content">
+					<h2>PIDE UN TAXI, EN CUALQUIER MOMENTO,EN CUALQUIER LUGAR DESDE TU DISPOSITIVO MOVIL</h2>
+					<div class="download-button"></div>
+					<h4>DESCARGA NUESTRA APP</h4>
+					<div class="apps">
+						<div class="play_store">
+							<a href="#"><img src="img/android.png" alt=""></a>
+						</div>
+						<div class="apple_store">
+							<a href="#"><img src="img/appstore.png" alt=""></a>
+						</div>
+					</div>
+				</div>
+			</div>
+	</section>
+	<article class="losing_elements">
+		<div class="container">
+			<div class="text_objets">
+				<h1>OBJETOS PERDIDOS</h1>
+			</div>
+			<p>Extraviaste alguno de tus objetos personales en nuestros taxis?<br>No te asuste, tus objetos se quedan aqui en nuestra empresa, sigue estos pasos para recuperarlos:</p>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="image-step">
+						<img src="img/circles.png" alt="">
+						<div class="step">
+							<h4>Paso 1</h4>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="image-step">
+						<img src="img/circles.png" alt="">
+						<div class="step">
+							<h4>Paso 2</h4>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="image-step">
+						<img src="img/circles.png" alt="">
+						<div class="step">
+							<h4>Paso 3</h4>
+						</div>						
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="believe">
+					<p>Creemos en el valor de nuestros clientes, y por eso querems clientes felices :)</p>
+				</div>
+				<div class="button">
+					<h4>Contactanos</h4>
+				</div>
+			</div>
+		</div>
+	</article>
+	<section class="testimonios">
+		<div class="container">
+			<div class="row">
+				<div class="test_title">
+					<h1>TESTIMONIOS</h1>
+				</div>
+				<div class="col-md-6">
+					<div class="comentarios left">
+						<div class="text_comment">
+							<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. </p>
+						</div>
+						<div class="user">
+							<div class="col-md-offset-1 col-md-3">
+								<div class="avatar"></div>
+							</div>
+							<div class="col-md-6">
+								<h4>Gustavo Romero</h4>
+								<p>Front-end Web Developer</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="comentarios right">
+						<div class="text_comment">
+							<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. </p>
+						</div>
+						<div class="user">
+							<div class="col-md-offset-1 col-md-3">
+								<div class="avatar"></div>
+							</div>
+							<div class="col-md-6">
+								<h4>Gustavo Romero</h4>
+								<p>Front-end Web Developer</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<article class="who_are_you">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="text_who">
+						<h1>QUIENES SOMOS</h1>
+					</div>
+					<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</p>
+				</div>
+				<div class="col-md-6">
+					<div class="app_foot">
+						<h1>DESCARGA NUESTRA APP</h1>
+					</div>
+					<div class="clear_space"></div>
+					<div class="apps">
+						<div class="play_store">
+							<a href="#"><img src="img/android.png" alt=""></a>
+						</div>
+						<div class="apple_store">
+							<a href="#"><img src="img/appstore.png" alt=""></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</article>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="text_footer">
+					<h3>Copyright © 2015 Taxis Ya <span><a href="#">Terminos y condiciones</a></span></h3>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+		  $('.bxslider').bxSlider();
+		});
+	</script>
+</body>	
+</html>

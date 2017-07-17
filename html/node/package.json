@@ -1,0 +1,15 @@
+{
+    "name": "Agendador",
+    "version": "0.0.1",
+    "description": "Control de agendamientos",
+    "dependencies": {
+        "socket.io": "*",
+        "express": "*",
+        "superagent": "*",
+        "geocoder": "*"
+    },
+    "scripts": {
+        "preinstall": "npm i -g forever"
+    },
+    "author": "John Guerrero"
+}

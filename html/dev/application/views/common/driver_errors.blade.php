@@ -1,0 +1,9 @@
+@if($errors->has())
+<ul>
+    {{$errors->first('name','<li>:message</li>')}}
+    {{$errors->first('lastname','<li>:message</li>')}}
+    {{$errors->first('email','<li>:message</li>')}}
+    {{$errors->first('login','<li>:message</li>')}}
+    {{$errors->first('pwd','<li>:message</li>')}}
+</ul>
+@endif

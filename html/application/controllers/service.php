@@ -14,8 +14,8 @@ class Service_Controller extends Base_Controller {
         //return View::make('service.index');
         //dd(Service::order_by('id')->get());
         return View::make('service.index')
-                        ->with('title', 'Servicios actuales')
-                        ->with('servicios', Service::order_by('id')->get());
+            ->with('title', 'Servicios actuales')
+            ->with('servicios', Service::order_by('id')->get());
         //        $view = View::make('service.index', array('name' => 'John'))->with('age', '28');
         //        $view->location = 'California'; //dont work
         //        $view['specialty'] = 'PHP'; //dont work
@@ -24,13 +24,13 @@ class Service_Controller extends Base_Controller {
 
     public function get_view($id) {
         return View::make('service.view')
-                        ->with('title', 'Usuario')
-                        ->with('service', Service::find($id));
+            ->with('title', 'Usuario')
+            ->with('service', Service::find($id));
     }
 
     public function get_new() {
         return View::make('service.new')
-                        ->with('title', 'nuevo Usuario');
+            ->with('title', 'nuevo Usuario');
     }
 
     public function post_create() {
@@ -61,6 +61,8 @@ class Service_Controller extends Base_Controller {
             'conp2' => Input::get('comp2'),
             'no' => Input::get('no'),
             'barrio' => Input::get('barrio'),
+            'commit' => Input::get('commit'),
+            'destination' => Input::get('destination'),
             'obs' => Input::get('obs')
         ));
     }
@@ -76,10 +78,10 @@ class Service_Controller extends Base_Controller {
             }
             if ($servicio->driver_id == NULL && $servicio->status_id == '1') {
                 $servicio = Service::update($id, array(
-                            'driver_id' => Input::get('driver_id'),
-                            'status_id' => '2'
-                                //Up Carro
-                                //,'pwd' => md5(Input::get('pwd'))
+                    'driver_id' => Input::get('driver_id'),
+                    'status_id' => '2'
+                    //Up Carro
+                    //,'pwd' => md5(Input::get('pwd'))
                 ));
                 Driver::update(Input::get('driver_id'), array(
                     "available" => '0'
@@ -87,8 +89,8 @@ class Service_Controller extends Base_Controller {
                 $driverTmp = Driver::find(Input::get('driver_id'));
                 Service::update($id, array(
                     'car_id' => $driverTmp->car_id
-                        //Up Carro
-                        //,'pwd' => md5(Input::get('pwd'))
+                    //Up Carro
+                    //,'pwd' => md5(Input::get('pwd'))
                 ));
                 //Notificar a usuario!!
                 $pushMessage = 'Tu servicio ha sido confirmado!';
@@ -111,7 +113,7 @@ class Service_Controller extends Base_Controller {
                 }
                 return Response::json(array('error' => '0'));
             } else {
-                return Response::json(array('error' => '1'));
+                return Response::json(array('error' => '10'));
             }
         } else {
             return Response::json(array('error' => '3'));
@@ -125,13 +127,13 @@ class Service_Controller extends Base_Controller {
         $servicio = Service::find($id);
         if ($servicio && ($servicio->status_id == '2' || $servicio->status_id == 2)){
             $servicio_status = Service::update($id, array(
-                        //'driver_id' => Input::get('driver_id'),
-                       // 'from_lat' => $driverData->crt_lat,
-                        //'from_lng' => $driverData->crt_lng,
-                        'status_id' => '4' //Terminado
-                            //'status_id' => '3' //En progreso
-                            //Up Carro
-                            //,'pwd' => md5(Input::get('pwd'))
+                //'driver_id' => Input::get('driver_id'),
+                // 'from_lat' => $driverData->crt_lat,
+                //'from_lng' => $driverData->crt_lng,
+                'status_id' => '4' //Terminado
+                //'status_id' => '3' //En progreso
+                //Up Carro
+                //,'pwd' => md5(Input::get('pwd'))
             ));
             //Notificar a usuario!!
             if ($servicio_status) {
@@ -151,7 +153,7 @@ class Service_Controller extends Base_Controller {
             if ($servicio){
                 $servicio_status = $servicio->status_id;
             }
-           return JSONResponse::error($servicio_status); 
+            return JSONResponse::error($servicio_status);
         }
 
         /* DESDE ACA
@@ -173,10 +175,10 @@ class Service_Controller extends Base_Controller {
     public function post_ride() {
         $id = Input::get('service_id');
         $servicio = Service::update($id, array(
-                    'driver_id' => Input::get('driver_id'),
-                    'status_id' => '4'
-                        //Up Carro
-                        //,'pwd' => md5(Input::get('pwd'))
+            'driver_id' => Input::get('driver_id'),
+            'status_id' => '4'
+            //Up Carro
+            //,'pwd' => md5(Input::get('pwd'))
         ));
         //Notificar a usuario!!
         //$pushMessage = 'Llego el taxi!';
@@ -197,10 +199,10 @@ class Service_Controller extends Base_Controller {
         } else {
 
             //return Response::json(array('status' => 'error', 'error' => '1', 'message' => 'Vale incorrecto o ya utilizado' ));
-            return Response::json(array('status' => 'error', 'error' => '1', 'message' => 'Vale incorrecto o ya utilizado '.$ticket ));
+            return Response::json(array('status' => 'error', 'error' => '10', 'message' => 'Vale incorrecto o ya utilizado '.$ticket ));
 
         }
-    } 
+    }
 
     public function post_score() {
         $id = Input::get('service_id');
@@ -216,10 +218,10 @@ class Service_Controller extends Base_Controller {
         //$servicio = Service::find($id);
 //return Response::json(array('Response' => 'ok')); Original
         if ($result) {
-        //if ($servicio) {
+            //if ($servicio) {
             return Response::json(array('Response' => 'ok', 'error' => '0'));
         } else {
-            return Response::json(array('Response' => 'error', 'error' => '1'));
+            return Response::json(array('Response' => 'error', 'error' => '10'));
         }
     }
 
@@ -234,8 +236,8 @@ class Service_Controller extends Base_Controller {
             $user->cancel_service();
 
             if (isset($actService->driver_id)) {
-               
-               // Notifier::driver($actService->driver, $push_type, $data = array());
+
+                // Notifier::driver($actService->driver, $push_type, $data = array());
 
                 $push = Push::make();
                 $msg = "El servicio ha sido cancelado por el usuario";
@@ -245,7 +247,7 @@ class Service_Controller extends Base_Controller {
                     //dd("driver android");
                     $androidDevices[] = $$actService->driver->uuid;
                     $result = $push->drivers($androidDevices, PushType::message($push_type), 1, 'default', 'Open', $data);
-                   //   $result = $push->drivers($androidDevices, PushType::message($push_type), 1, 'honk.wav', 'Open', $data);
+                    //   $result = $push->drivers($androidDevices, PushType::message($push_type), 1, 'honk.wav', 'Open', $data);
                 }
                 else { // ios
                     //dd("driver iOS");
@@ -304,8 +306,8 @@ class Service_Controller extends Base_Controller {
 
 
         $result = Service::update($id, array(
-                    'status_id' => '8'
-                        //,'pwd' => md5(Input::get('pwd'))
+            'status_id' => '8'
+            //,'pwd' => md5(Input::get('pwd'))
         ));
 
 
@@ -322,7 +324,7 @@ class Service_Controller extends Base_Controller {
         if ($result) {
             return Response::json(array('error' => '0'));
         } else {
-            return Response::json(array('error' => '1'));
+            return Response::json(array('error' => '10'));
         }
     }
 
@@ -372,7 +374,7 @@ class Service_Controller extends Base_Controller {
         if ($sucess) {
             return Response::json(array('error' => '0'));
         } else {
-            return Response::json(array('error' => '1'));
+            return Response::json(array('error' => '10'));
         }
     }
 
@@ -403,17 +405,17 @@ class Service_Controller extends Base_Controller {
             'to_lat' => Input::get('to_lat'),
             'to_lng' => Input::get('to_lng'),
 
-                'units'   => Input::get('units'),
-                'charge1' => Input::get('charge1'),
-                'charge2' => Input::get('charge2'),
-                'charge3' => Input::get('charge3'),
-                'charge4' => Input::get('charge4'),
-                'value'   => Input::get('value'),
-                'pay_reference'   => Input::get('transaction_id'),
+            'units'   => Input::get('units'),
+            'charge1' => Input::get('charge1'),
+            'charge2' => Input::get('charge2'),
+            'charge3' => Input::get('charge3'),
+            'charge4' => Input::get('charge4'),
+            'value'   => Input::get('value'),
+            'pay_reference'   => Input::get('transaction_id'),
 
-                //'finish_datetime' => Input::get('finish_datetime'),
-                //'qualification' => Input::get('qualification')
-                //,'pwd' => md5(Input::get('pwd'))
+            //'finish_datetime' => Input::get('finish_datetime'),
+            //'qualification' => Input::get('qualification')
+            //,'pwd' => md5(Input::get('pwd'))
         ));
         //if($driverid<>'')
         if ($respuesta == true || $respuesta == 0)
@@ -430,7 +432,7 @@ class Service_Controller extends Base_Controller {
                     //dd($ticket);
                     //$query_service = "SELECT * FROM tickets WHERE ticket = '". $ticket . "';";
                     $query_service = "UPDATE ticket_tickets SET status = 1 WHERE ticket = '". $ticket . "';";
-                    $resp_service = DB::query($query_service);    
+                    $resp_service = DB::query($query_service);
                     //$ticket2 = $resp_service[0]->ticket;
                     //dd($ticket2);
                 }
@@ -447,7 +449,7 @@ class Service_Controller extends Base_Controller {
                 }
                 */
             }
-            
+
 
             // marcar el vale como utilizado
 
@@ -481,14 +483,14 @@ class Service_Controller extends Base_Controller {
             }
             return Response::json(array('error' => '0'));
         } else {
-            return Response::json(array('error' => '1'));
+            return Response::json(array('error' => '10'));
         }
     }
 
     public function get_edit($id) {
         return View::make('service.edit')
-                        ->with('title', 'Edit service')
-                        ->with('service', Service::find($id));
+            ->with('title', 'Edit service')
+            ->with('service', Service::find($id));
     }
 
     public function put_update() {
@@ -506,7 +508,7 @@ class Service_Controller extends Base_Controller {
             'lastname' => Input::get('lastname'),
             'cellphone' => Input::get('cellphone'),
             'login' => Input::get('login')
-                //,'pwd' => md5(Input::get('pwd'))
+            //,'pwd' => md5(Input::get('pwd'))
         ));
         return Redirect::to_route('service', $id)->with('message', 'Usuario actualizado');
         //        }
@@ -522,8 +524,8 @@ class Service_Controller extends Base_Controller {
 
     public function get_gettaxi($id) {
         return View::make('service.solicitud')
-                        ->with('title', 'Usuario solicita taxi')
-                        ->with('user', User::find($id));
+            ->with('title', 'Usuario solicita taxi')
+            ->with('user', User::find($id));
     }
 
     public function post_request() {
@@ -537,22 +539,24 @@ class Service_Controller extends Base_Controller {
         //crear el servicio en la base de datos y regresar el id del servicio
         //Se puede desde el usuario con la relacion de hasmany
         $servicio = Service::create(array(
-                    'user_id' => $id,
-                    'status_id' => '1',
-                    'from_lng' => Input::get('crt_lng'),
-                    'from_lat' => Input::get('crt_lat'),
-                    'index_id' => Input::get('index_id'),
-                    'comp1' => Input::get('comp1'),
-                    'comp2' => Input::get('comp2'),
-                    'no' => Input::get('no'),
-                    'barrio' => Input::get('barrio'),
-                    'obs' => Input::get('obs'),
-                    'kind_id' => '1',
+            'user_id' => $id,
+            'status_id' => '1',
+            'from_lng' => Input::get('crt_lng'),
+            'from_lat' => Input::get('crt_lat'),
+            'index_id' => Input::get('index_id'),
+            'comp1' => Input::get('comp1'),
+            'comp2' => Input::get('comp2'),
+            'no' => Input::get('no'),
+            'barrio' => Input::get('barrio'),
+            'commit' => Input::get('commit'),
+            'destination' => Input::get('destination'),
+            'obs' => Input::get('obs'),
+            'kind_id' => '1',
         ));
         //agregar direccion a favoritos
         $addressData = DB::table('users_dirs')
-                ->where_index_id_and_comp1_and_comp2_and_no_and_barrio_and_user_id(Input::get('index_id'), Input::get('comp1'), Input::get('comp2'), Input::get('no'), Input::get('barrio'), Input::get('user_id'))
-                ->first();
+            ->where_index_id_and_comp1_and_comp2_and_no_and_barrio_and_user_id(Input::get('index_id'), Input::get('comp1'), Input::get('comp2'), Input::get('no'), Input::get('barrio'), Input::get('user_id'))
+            ->first();
         if ($addressData) {
             //return json_encode(array('error' => '1')); //Direccion existente
             //$addressObj=  Address::find($addressData->id);
@@ -644,22 +648,22 @@ class Service_Controller extends Base_Controller {
             //crear el servicio en la base de datos y regresar el id del servicio
             //Se puede desde el usuario con la relacion de hasmany
             $servicio = Service::create(array(
-                        'user_id' => $user_id,
-                        'status_id' => '1',
-                        'from_lng' => $crt_lng,
-                        'from_lat' => $crt_lat,
-                        'index_id' => $index_id,
-                        'comp1' => $comp1,
-                        'comp2' => $comp2,
-                        'no' => $no,
-                        'barrio' => $barrio,
-                        'obs' => $obs,
-                        'kind_id' => '3'
+                'user_id' => $user_id,
+                'status_id' => '1',
+                'from_lng' => $crt_lng,
+                'from_lat' => $crt_lat,
+                'index_id' => $index_id,
+                'comp1' => $comp1,
+                'comp2' => $comp2,
+                'no' => $no,
+                'barrio' => $barrio,
+                'obs' => $obs,
+                'kind_id' => '3'
             ));
             //agregar direccion a favoritos
             $addressData = DB::table('users_dirs')
-                    ->where_index_id_and_comp1_and_comp2_and_no_and_barrio_and_user_id($index_id, $comp1, $comp2, $no, $barrio, $id)
-                    ->first();
+                ->where_index_id_and_comp1_and_comp2_and_no_and_barrio_and_user_id($index_id, $comp1, $comp2, $no, $barrio, $id)
+                ->first();
             if ($addressData) {
                 //return json_encode(array('error' => '1')); //Direccion existente
                 //$addressObj=  Address::find($addressData->id);
@@ -745,7 +749,7 @@ class Service_Controller extends Base_Controller {
             $defService = Service::find($servicio->id);
             return Response::eloquent($defService); //$servicio);
         } else {
-            return Response::json(array('error' => '1', 'msg' => 'Bad access'));
+            return Response::json(array('error' => '10', 'msg' => 'Bad access'));
         }
     }
 
@@ -847,17 +851,18 @@ class Service_Controller extends Base_Controller {
     }
 
     public function post_status() {
+
         if (Input::get('driver_id','') != '') {
             $driver_id = Input::get('driver_id');
             if (Input::get('service_id','') != '') {
                 $result = Service::where('id','=',Input::get('service_id'))->where_driver_id($driver_id)->first();
-                //$result = Service::find(Input::get('service_id'));
-            } else {    
-               
+
+            } else {
+
                 $statuses = array(2,4,8);
                 $result = Service::where_in('status_id',$statuses)->where_driver_id($driver_id)->first();
-            }    
-        } else {    
+            }
+        } else {
             //if (Input::has('service_id')) {
             if (Input::get('service_id','') != '') {
                 $id = Input::get('service_id');
@@ -880,27 +885,46 @@ class Service_Controller extends Base_Controller {
                         $data = Input::json();
                         if(!property_exists($data, 'service_id')){
                             if(property_exists($data, 'user_id')){
-                                   $statuses = array(2,5,4,1);
-                                   $result = Service::where_in('status_id',$statuses)->where_user_id($data->user_id)->where('kind_id','<>','3')->where_null('qualification')->order_by('status_id')->order_by('created_at')->first();
-                                   //$result = Service::where_in('status_id',$statuses)->where_user_id($data->user_id)->where_null('qualification')->order_by('created_at', 'DESC')->first();
-                                //$result = Service::where_status_id(2)->where_user_id($data->user_id)->first();
+                                $statuses = array(2,5,4,1);
+                                $result = Service::where_in('status_id',$statuses)->where_user_id($data->user_id)->where('kind_id','<>','3')->where_null('qualification')->order_by('status_id')->order_by('created_at')->first();
                             }else{
                                 $statuses = array(2,4);
                                 $result = Service::where_in('status_id',$statuses)->where_driver_id($data->driver_id)->first();
                             }
                         }else{
-                                $id = $data->service_id;
-                                $result = Service::find($id);
+                            $id = $data->service_id;
+                            $result = Service::find($id);
                         }
                     }
                 }
             }
-        }    
+        }
+
         if (isset($result)) {
             return Response::eloquent($result);
-        } else {
-            return Response::json(array('error' => '100'));
+
         }
+        elseif ($result != true){
+
+            $fecha = date('Y-m-j H:i:s');
+            $nuevafecha = strtotime ( '-2 hours' , strtotime ( $fecha ) ) ;
+            $nuevafecha = date ( 'Y-m-j H:i:s' , $nuevafecha );
+
+            $test = DB::table('services')
+                ->where('updated_at', '>', $nuevafecha)
+                ->where('status_id', '!=', 7)
+                ->where('status_id', '!=', 8)
+                ->where('status_id', '!=', 9)
+                ->where('driver_id', '!=', "")
+                ->where('kind_id', '=', 1)
+                ->where('units', '=', 0)
+                //->join('users', 'services.id', '=', 'users.name')
+                //->select('services.*', 'users.name')
+                ->get();
+
+            return Response::json(array('services' => $test));
+        }
+
     }
 
     public function post_pusher() {
@@ -941,21 +965,21 @@ class Service_Controller extends Base_Controller {
             print_r($nuevafecha,true);
         }
 
-       // $fecha = DateTime::createFromFormat("d/m/Y H:i:s", $day."/".$month."/".$year. " 23:59:59");
+        // $fecha = DateTime::createFromFormat("d/m/Y H:i:s", $day."/".$month."/".$year. " 23:59:59");
         //print_r($fecha,true);
 
         //$nuevafecha = date('Y-m-d H:i:s', strtotime ( '-1 month' , strtotime (''.$fecha->date.''))) ;
 
         $daysOfServices = DB::table('services')->where('user_id', '=', $id)
-                    //->where(DB::RAW('MONTH(updated_at)'), '=', $month)
-                    //->where(DB::RAW('YEAR(updated_at)'), '=', $year)
-                    //->where(DB::RAW('DAY(updated_at)'),'>=',$day2-7)
-                    ->where_between('updated_at', $nuevafecha, $fecha->date)
-                    ->where_status_id('5')
-                    ->order_by('updated_at','DESC')
-                    ->group_by(DB::RAW('DAY(updated_at)'))
-                    ->get(array(DB::RAW('DAY(updated_at) as day'), DB::RAW('MONTH(updated_at) as month'), DB::RAW('YEAR(updated_at) as year')));
-        
+            //->where(DB::RAW('MONTH(updated_at)'), '=', $month)
+            //->where(DB::RAW('YEAR(updated_at)'), '=', $year)
+            //->where(DB::RAW('DAY(updated_at)'),'>=',$day2-7)
+            ->where_between('updated_at', $nuevafecha, $fecha->date)
+            ->where_status_id('5')
+            ->order_by('updated_at','DESC')
+            ->group_by(DB::RAW('DAY(updated_at)'))
+            ->get(array(DB::RAW('DAY(updated_at) as day'), DB::RAW('MONTH(updated_at) as month'), DB::RAW('YEAR(updated_at) as year')));
+
         /*
         $currentDay = date('j');
         if($currentDay < 5){
@@ -1017,12 +1041,12 @@ class Service_Controller extends Base_Controller {
              */
 
             $dayServices = Service::with(array('driver', 'car'))->where('user_id', '=', $id)
-                            //->where(DB::RAW('MONTH(updated_at)'), '=', $month)
-                            //->where(DB::RAW('YEAR(updated_at)'), '=', $year)
-                            //->where_status_id('5')
-                            ->where_between('updated_at', $nuevafecha, $fecha->date)
-                            ->where_status_id('5')->get();
-                            //->where(DB::RAW('DAY(updated_at)'), '=', $day)->get();
+                //->where(DB::RAW('MONTH(updated_at)'), '=', $month)
+                //->where(DB::RAW('YEAR(updated_at)'), '=', $year)
+                //->where_status_id('5')
+                ->where_between('updated_at', $nuevafecha, $fecha->date)
+                ->where_status_id('5')->get();
+            //->where(DB::RAW('DAY(updated_at)'), '=', $day)->get();
             $logDefArray = array();
             foreach ($dayServices as $key => $value) {
                 $logDefArray[] = $value->to_array();
@@ -1043,13 +1067,13 @@ class Service_Controller extends Base_Controller {
                     $monthAux = '0'.$monthAux;
 
                 }
-                
+
                 $dayDefArray[] = $yearAux.'-'.$monthAux.'-'.$dayAux;
-               //$dayDefArray[] = print_r($value,true); 
+                //$dayDefArray[] = print_r($value,true);
             }
             return Response::json(array('dayList' => ($dayDefArray), 'services' => ($logDefArray)));
         } else {
-            return Response::json(array('error' => '1'));
+            return Response::json(array('error' => '10'));
         }
     }
 
@@ -1061,10 +1085,10 @@ class Service_Controller extends Base_Controller {
             $month = date('n');
         }
         $daysOfServices = DB::table('services')->where('driver_id', '=', $id)
-                ->where(DB::RAW('MONTH(updated_at)'), '=', $month)
-                ->where_status_id('5')
-                ->group_by(DB::RAW('DAY(updated_at)'))
-                ->get(array(DB::RAW('DAY(updated_at) as day')));
+            ->where(DB::RAW('MONTH(updated_at)'), '=', $month)
+            ->where_status_id('5')
+            ->group_by(DB::RAW('DAY(updated_at)'))
+            ->get(array(DB::RAW('DAY(updated_at) as day')));
 
         if (!count($daysOfServices) > 0) {
             return Response::json(array('error' => '2'));
@@ -1074,30 +1098,11 @@ class Service_Controller extends Base_Controller {
             if (!isset($day)) {
                 $day = $daysOfServices['0']->day;
             }
-            //Service::where('user_id','=',$id)->get()->to_array();
-            /*
-              select
-              MONTH(updated_at),
-              DAY(updated_at)
-              from services
-              where user_id=1
-              and MONTH(updated_at)=5
-              group by DAY(updated_at)
-             */
-            /*
-              select
-             *
-              from
-              services
-              where
-              MONTH(updated_at)=5
-              AND DAY(updated_at)=2
-             */
 
             $dayServices = Service::with(array('user'))->where(DB::RAW('MONTH(updated_at)'), '=', $month)
-                            ->where('driver_id', '=', $id)
-                            ->where_status_id('5')
-                            ->order_by('id', 'ASC')->get();
+                ->where('driver_id', '=', $id)
+                ->where_status_id('5')
+                ->order_by('id', 'ASC')->get();
             //->where(DB::RAW('DAY(updated_at)'), '=', $day)->get();
             foreach ($dayServices as $key => $value) {
                 $logDefArray[] = $value->to_array();
@@ -1108,7 +1113,7 @@ class Service_Controller extends Base_Controller {
             //return Response::json(array('dayList' => ($dayDefArray), 'services' => ($logDefArray)));
             return Response::json(array('services' => ($logDefArray)));
         } else {
-            return Response::json(array('error' => '1'));
+            return Response::json(array('error' => '10'));
         }
     }
 

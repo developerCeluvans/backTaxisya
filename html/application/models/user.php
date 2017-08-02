@@ -257,13 +257,11 @@ class User extends Eloquent {
         //Se notifica a todos los conductores, pero solo los cercanos muestran la notificación en el dispositivo
         $success = $drivers = $this->get_all_drivers();
 
-        if ($success)
-        {
+        if ($success) {
 
             // determina ciudad
             $bound = "5";
-            $query = "SELECT *,((ACOS(SIN(".$lat."* PI() / 180) * SIN(center_lat * PI() / 180) + COS(".$lat. " * PI() / 180) * COS(center_lat * PI() / 180) * COS((".$lng." - center_lng) * PI() / 180)) * 180 / PI()) * 60 * 1.1515) AS distance
-FROM cms_cities WHERE ( center_lat BETWEEN (".$lat." - ".$bound.") AND (".$lat." + ".$bound.") AND center_lng BETWEEN (".$lng." - ".$bound.") AND (".$lng." + ".$bound.") ) ORDER BY distance ASC";
+            $query = "SELECT *,((ACOS(SIN(".$lat."* PI() / 180) * SIN(center_lat * PI() / 180) + COS(".$lat. " * PI() / 180) * COS(center_lat * PI() / 180) * COS((".$lng." - center_lng) * PI() / 180)) * 180 / PI()) * 60 * 1.1515) AS distance FROM cms_cities WHERE ( center_lat BETWEEN (".$lat." - ".$bound.") AND (".$lat." + ".$bound.") AND center_lng BETWEEN (".$lng." - ".$bound.") AND (".$lng." + ".$bound.") ) ORDER BY distance ASC";
             $result = DB::query($query);
              (count($result) > 0) ? ($city_id = $result[0]->id) : ($city_id = 0);
 
@@ -273,9 +271,17 @@ FROM cms_cities WHERE ( center_lat BETWEEN (".$lat." - ".$bound.") AND (".$lat."
             $result = DB::query($query);
 
             $cms_user_id = $result[0]->customer_id;
-            //dd($cms_user_id);
 
+            $commit = $addr_data['commit'];
+            $destination = $addr_data['destination'];
 
+            if ($commit == ""){
+                $commit = "NULL";
+            }
+
+            if ($destination == ""){
+                $destination = "NULL";
+            }
             $success = $service = Service::create(array(
                 'user_id' => $this->id,
                 'status_id' => '1',
@@ -293,6 +299,8 @@ FROM cms_cities WHERE ( center_lat BETWEEN (".$lat." - ".$bound.") AND (".$lat."
                 'user_email' => $addr_data['user_email'],                
                 'user_card_reference' => $addr_data['user_card_reference'],
                 'code' => $addr_data['code'],
+                'commit' => $commit,
+                'destination' => $destination,
                 'from_lat'  => $lat,
                 'from_lng'  => $lng,
                 'cms_users_id' => $cms_user_id,
